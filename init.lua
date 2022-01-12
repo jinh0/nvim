@@ -1,0 +1,5 @@
+require('options')
+require('pluginList')
+require('theme')
+require('mappings')
+require('plugins.extras')
