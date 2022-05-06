@@ -10,3 +10,9 @@ g.tagalong_additional_filetypes = {"html", "xml", "jsx", "js", "javascript", "ja
 
 -- ToggleTerm
 require('toggleterm').setup { open_mapping = [[<c-_>]] }
+
+-- vim.cmd([[
+-- let g:Tex_IgnoredWarnings = 
+    -- \'Underfull'."\n".
+    -- \'LaTeX Warning: Marginpar on page 1 moved'."\n"
+-- ]])

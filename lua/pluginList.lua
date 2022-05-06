@@ -10,8 +10,7 @@ return require('packer').startup(function(use)
   -- TREESITTER {{{
   use {
     'nvim-treesitter/nvim-treesitter',
-    disable = opts.treesitter,
-    event = "BufRead",
+    event = {"BufRead", "BufNewFile"},
     run = ':TSUpdate',
     config = function()
       require 'plugins.treesitter'
@@ -20,25 +19,28 @@ return require('packer').startup(function(use)
 
   use {
     'nvim-treesitter/playground',
-    disable = opts.ts_playground,
     event = 'BufRead'
   }
   -- }}}
 
   -- LSP {{{
-  use 'kabouzeid/nvim-lspinstall'
+  use 'jubnzv/virtual-types.nvim'
 
   use {
-    'neovim/nvim-lspconfig',
-    config = function()
-      require 'plugins.lsp-config'
-    end,
-    requires = {
-      {
-        'glepnir/lspsaga.nvim',
-        config = function()
-          require 'plugins.lspsaga'
-        end
+    "williamboman/nvim-lsp-installer",
+    {
+      "neovim/nvim-lspconfig",
+      config = function()
+          require("nvim-lsp-installer").setup {}
+          require 'plugins.lsp-config'
+      end,
+      requires = {
+        {
+          'glepnir/lspsaga.nvim',
+          config = function()
+            require 'plugins.lspsaga'
+          end
+        }
       }
     }
   }
@@ -67,6 +69,8 @@ return require('packer').startup(function(use)
     end
   }
 
+  use 'lervag/vimtex'
+
   use {
     "ray-x/lsp_signature.nvim",
     after = "nvim-lspconfig",
@@ -75,14 +79,6 @@ return require('packer').startup(function(use)
     end
   }
 
-  -- use {
-    -- 'glepnir/lspsaga.nvim',
-    -- after = 'nvim-lspconfig',
-    -- config = function()
-      -- require
-    -- end
-  -- }
-
   use {
     'simrat39/symbols-outline.nvim',
     after = 'nvim-lspconfig',
@@ -90,14 +86,6 @@ return require('packer').startup(function(use)
       require 'mappings'.symbols_outline()
     end
   }
-
-  -- use {
-    -- 'neoclide/coc.nvim',
-    -- disable = false,
-    -- branch = 'release',
-    -- event = {'CursorHold', 'BufRead'}
-  -- }
-  -- }}}
 
   use 'HerringtonDarkholme/yats.vim'
 
@@ -108,7 +96,6 @@ return require('packer').startup(function(use)
       after = "plenary.nvim"
   }
 
-  use 'fannheyward/telescope-coc.nvim'
   use {
     'nvim-telescope/telescope.nvim',
     cmd = {'Telescope', 'TelescopeBuffers', 'TelescopeDotfiles'},
@@ -127,23 +114,12 @@ return require('packer').startup(function(use)
   }
 
   use {
-    "AckslD/nvim-neoclip.lua",
-    requires = {'tami5/sqlite.lua', module = 'sqlite'},
+    '~/dev/eyeliner.nvim',
+    disable = false,
     config = function()
-      require('neoclip').setup({
-        history = 100,
-        enable_persistant_history = true,
-      })
-    end,
+      require('eyeliner').setup{}
+    end
   }
-
-  -- use {
-    -- '~/dev/eyeliner.nvim',
-    -- disable = false,
-    -- config = function()
-      -- require('eyeliner').setup{}
-    -- end
-  -- }
 
   use {
     'David-Kunz/treesitter-unit',
@@ -154,11 +130,6 @@ return require('packer').startup(function(use)
     end
   }
 
-  -- use {
-  --   'JoosepAlviste/nvim-ts-context-commentstring',
-  --   event = 'BufRead'
-  -- }
-
   use 'kyazdani42/nvim-web-devicons'
 
   use {
@@ -167,16 +138,6 @@ return require('packer').startup(function(use)
       require('plugins.barbar')
     end
   }
-
-  -- use {
-    -- 'romgrk/barbar.nvim',
-    -- config = function()
-      -- require('plugins.barbar')
-    -- end,
-    -- setup = function()
-      -- require 'mappings'.barbar()
-    -- end
-  -- }
 
   use {
     'hoob3rt/lualine.nvim',
@@ -193,6 +154,7 @@ return require('packer').startup(function(use)
     cmd = 'NvimTreeToggle',
     config = function()
       require 'plugins.nvimtree'
+      require'nvim-tree'.setup {}
     end
   }
 
@@ -201,9 +163,8 @@ return require('packer').startup(function(use)
     event = 'BufRead'
   }
 
-  -- use 'kshenoy/vim-signature'
   use 'tpope/vim-surround'
-  use 'mattn/emmet-vim'
+
   use {
     'AndrewRadev/tagalong.vim',
     disable = opts.tagalong
@@ -221,29 +182,17 @@ return require('packer').startup(function(use)
   }
 
   -- colorschemes
-  use 'pineapplegiant/spaceduck'
+  use {
+    'pineapplegiant/spaceduck',
+    branch = 'dev'
+  }
   use 'sainnhe/gruvbox-material'
-  use 'ray-x/aurora'
   -- use 'christianchiarulli/nvcode-color-schemes.vim'
   use 'folke/tokyonight.nvim'
   use 'projekt0n/github-nvim-theme'
-  use 'mcchrish/zenbones.nvim'
   use 'arcticicestudio/nord-vim'
 
   use 'sainnhe/everforest'
-
-  use({
-      'rose-pine/neovim',
-      as = 'rose-pine',
-      config = function()
-          -- Options (see available options below)
-          vim.g.rose_pine_variant = 'dawn'
-
-          -- Load colorscheme after options
-          -- vim.cmd('colorscheme rose-pine')
-      end
-  })
-
 
 end)
 

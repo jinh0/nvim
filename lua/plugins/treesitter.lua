@@ -4,10 +4,19 @@ require'nvim-treesitter.configs'.setup {
     enable = true -- false will disable the whole extension
     -- disable = { 'typescript', 'tsx'}
   },
-  indent = {
-    enable = false
-  },
-  context_commentstring = {
-    enable = true
-  }
+  -- incremental_selection = {
+    -- enable = true,
+    -- keymaps = {
+      -- init_selection = "gnn",
+      -- node_incremental = "gcr",
+      -- scope_incremental = "gcn",
+      -- node_decremental = "gcm",
+    -- },
+  -- },
+  -- indent = {
+    -- enable = false
+  -- },
+  -- context_commentstring = {
+    -- enable = true
+  -- }
 }

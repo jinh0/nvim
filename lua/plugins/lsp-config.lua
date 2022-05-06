@@ -1,7 +1,3 @@
--- local nvim_lsp = require('lspconfig')
-
--- on_attach {{{
-
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
 local on_attach = function(client, bufnr)
@@ -31,7 +27,7 @@ local on_attach = function(client, bufnr)
 
   buf_set_keymap('n', '<space>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
   -- buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
-  buf_set_keymap('n', '<space>d', '<cmd>lua require"lspsaga.diagnostic".show_line_diagnostics()<CR>', opts)
+  buf_set_keymap('n', '<space>d', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
 
   buf_set_keymap('n', '[d', '<cmd>lua require"lspsaga.diagnostic".lsp_jump_diagnostic_prev()<CR>', opts)
   buf_set_keymap('n', ']d', '<cmd>lua require"lspsaga.diagnostic".lsp_jump_diagnostic_next()<CR>', opts)
@@ -40,43 +36,13 @@ local on_attach = function(client, bufnr)
   buf_set_keymap('n', '<space>f', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
 
   -- lspsaga
-  vim.cmd([[ autocmd CursorHold * lua require'lspsaga.diagnostic'.show_line_diagnostics() ]])
+  -- vim.cmd([[ autocmd CursorHold * lua require'lspsaga.diagnostic'.show_line_diagnostics() ]])
   buf_set_keymap('n', '<space>rn', '<cmd>lua require("lspsaga.rename").rename()<CR>', opts)
 end
--- }}}
 
-local function setup_servers()
-  require'lspinstall'.setup()
 
-  local capabilities = vim.lsp.protocol.make_client_capabilities()
-  capabilities.textDocument.completion.completionItem.snippetSupport = true
-
-  vim.lsp.handlers["textDocument/publishDiagnostics"] =
-    vim.lsp.with(
-    vim.lsp.diagnostic.on_publish_diagnostics,
-    {
-        virtual_text = {
-          severity_limit = 'Warning'
-        }
-    }
-  )
-
-  capabilities.textDocument.completion.completionItem.resolveSupport = {
-    properties = {
-      'documentation',
-      'detail',
-      'additionalTextEdits',
-    }
-  }
-
-  --[[
-  local servers = require'lspinstall'.installed_servers()
-  for _, server in pairs(servers) do
-    require'lspconfig'[server].setup{}
-  end
-  --]]
-
-  require'lspconfig'.lua.setup {
+local lspconfig = require("lspconfig")
+lspconfig.sumneko_lua.setup {
     on_attach = on_attach,
     settings = {
       Lua = {
@@ -93,164 +59,266 @@ local function setup_servers()
         },
       }
     }
+}
+
+
+require'lspconfig'.ocamllsp.setup {
+  on_attach = function (client, bufnr)
+    require'virtualtypes'.on_attach(client, bufnr)
+    on_attach(client, bufnr)
+  end,
+  filetypes = { "ocaml", "ocaml.menhir", "ocaml.interface", "ocaml.ocamllex", "reason", "ml" }
+}
+
+require'lspconfig'.hls.setup { on_attach = on_attach }
+
+require'lspconfig'.tsserver.setup {
+  init_options = { documentFormatting = false },
+  on_attach = function(client, bufnr)
+    client.resolved_capabilities.document_formatting = false
+    on_attach(client, bufnr)
+  end,
+}
+
+
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities.textDocument.completion.completionItem.snippetSupport = true
+capabilities.textDocument.completion.completionItem.resolveSupport = {
+  properties = {
+    'documentation',
+    'detail',
+    'additionalTextEdits',
   }
+}
 
-  require'lspconfig'.html.setup{}
+require'lspconfig'.html.setup {
+  capabilities = capabilities,
+  on_attach = on_attach
+}
 
-  require'lspconfig'.pyright.setup {
-    on_attach = on_attach,
-  }
+require'lspconfig'.pyright.setup {
+  on_attach = on_attach,
+}
 
-  require'lspconfig'.gopls.setup {
-    on_attach = on_attach,
-  }
 
-  require'lspconfig'.texlab.setup {
-    settings = {
-      texlab = {
-        auxDirectory = ".",
-        bibtexFormatter = "texlab",
-        build = {
-          -- args = { "-pdf", "-interaction=nonstopmode", "-synctex=1", "%f" },
-          executable = "pdflatex",
-          -- forwardSearchAfter = false,
-          onSave = false
-        },
-        -- chktex = {
-          -- onEdit = false,
-          -- onOpenAndSave = false
-        -- },
-        -- diagnosticsDelay = 300,
-        -- formatterLineLength = 80,
-        -- forwardSearch = {
-          -- args = {}
-        -- },
-        -- latexFormatter = "latexindent",
-        -- latexindent = {
-          -- modifyLineBreaks = false
+
+-- local function setup_servers()
+  -- require'lspinstall'.setup()
+
+  -- local capabilities = vim.lsp.protocol.make_client_capabilities()
+  -- capabilities.textDocument.completion.completionItem.snippetSupport = true
+
+  -- vim.lsp.handlers["textDocument/publishDiagnostics"] =
+    -- vim.lsp.with(
+    -- vim.lsp.diagnostic.on_publish_diagnostics,
+    -- {
+        -- virtual_text = {
+          -- severity_limit = 'Warning'
         -- }
-      }
-    }
-  }
+    -- }
+  -- )
 
-  -- require'lspconfig'.clangd.setup{
+  -- capabilities.textDocument.completion.completionItem.resolveSupport = {
+    -- properties = {
+      -- 'documentation',
+      -- 'detail',
+      -- 'additionalTextEdits',
+    -- }
+  -- }
+
+  -- [>
+  -- local servers = require'lspinstall'.installed_servers()
+  -- for _, server in pairs(servers) do
+    -- require'lspconfig'[server].setup{}
+  -- end
+  -- --]]
+
+  -- require'lspconfig'.lua.setup {
+    -- on_attach = on_attach,
+    -- settings = {
+      -- Lua = {
+        -- diagnostics = {
+          -- globals = {'vim'}
+        -- },
+        -- workspace = {
+          -- library = {
+            -- [vim.fn.expand("$VIMRUNTIME/lua")] = true,
+            -- [vim.fn.expand("$VIMRUNTIME/lua/vim/lsp")] = true
+          -- },
+          -- maxPreload = 100000,
+          -- preloadFileSize = 10000
+        -- },
+      -- }
+    -- }
+  -- }
+
+  -- require'lspconfig'.ocamllsp.setup {
+    -- on_attach= on_attach,
+    -- filetypes = { "ocaml", "ocaml.menhir", "ocaml.interface", "ocaml.ocamllex", "reason", "ml" }
+  -- }
+  -- --Enable (broadcasting) snippet capability for completion
+  -- local capabilities = vim.lsp.protocol.make_client_capabilities()
+  -- capabilities.textDocument.completion.completionItem.snippetSupport = true
+
+  -- require'lspconfig'.html.setup {
+    -- capabilities = capabilities,
     -- on_attach = on_attach
   -- }
 
-  require'lspconfig'.tsserver.setup {
-    init_options = { documentFormatting = false },
-    on_attach = function(client, bufnr)
-      client.resolved_capabilities.document_formatting = false
-      on_attach(client, bufnr)
-    end,
-  }
+  -- require'lspconfig'.gopls.setup {
+    -- on_attach = on_attach,
+  -- }
 
-  require'lspconfig'.jdtls.setup {
-    cmd = { 'jdtls' },
-    on_attach = on_attach
-  }
+  -- require'lspconfig'.bashls.setup {
+    -- on_attach = on_attach,
+  -- }
 
-  -- JSON {{{
-  require'lspconfig'.jsonls.setup {
-    on_attach = on_attach,
-    capabilities = capabilities,
-    settings = {
-      json = {
-        -- Schemas https://www.schemastore.org
-        schemas = {
-          {
-            fileMatch = {"package.json"},
-            url = "https://json.schemastore.org/package.json"
-          },
-          {
-            fileMatch = {"tsconfig.json"},
-            url = "https://json.schemastore.org/tsconfig.json"
-          },
-          {
-            fileMatch = {"jsconfig.json"},
-            url = "https://json.schemastore.org/jsconfig.json"
-          },
-          {
-            fileMatch = {
-              ".prettierrc",
-              ".prettierrc.json",
-              "prettier.config.json"
-            },
-            url = "https://json.schemastore.org/prettierrc.json"
-          },
-          {
-            fileMatch = {".eslintrc", ".eslintrc.json"},
-            url = "https://json.schemastore.org/eslintrc.json"
-         },
-          {
-            fileMatch = {".babelrc", ".babelrc.json", "babel.config.json"},
-            url = "https://json.schemastore.org/babelrc.json"
-          },
-          {
-            fileMatch = {"lerna.json"},
-            url = "https://json.schemastore.org/lerna.json"
-          },
-          {
-            fileMatch = {"now.json", "vercel.json"},
-            url = "https://json.schemastore.org/now.json"
-          },
-          {
-            fileMatch = {
-              ".stylelintrc",
-              ".stylelintrc.json",
-              "stylelint.config.json"
-            },
-            url = "http://json.schemastore.org/stylelintrc.json"
-          }
-        }
-      }
-    }
-  }
-  -- }}}
+  -- require'lspconfig'.texlab.setup {
+    -- settings = {
+      -- texlab = {
+        -- auxDirectory = ".",
+        -- bibtexFormatter = "texlab",
+        -- build = {
+          -- -- args = { "-pdf", "-interaction=nonstopmode", "-synctex=1", "%f" },
+          -- executable = "pdflatex",
+          -- -- forwardSearchAfter = false,
+          -- onSave = false
+        -- },
+        -- -- chktex = {
+          -- -- onEdit = false,
+          -- -- onOpenAndSave = false
+        -- -- },
+        -- -- diagnosticsDelay = 300,
+        -- -- formatterLineLength = 80,
+        -- -- forwardSearch = {
+          -- -- args = {}
+        -- -- },
+        -- -- latexFormatter = "latexindent",
+        -- -- latexindent = {
+          -- -- modifyLineBreaks = false
+        -- -- }
+      -- }
+    -- }
+  -- }
+
+  -- -- require'lspconfig'.clangd.setup{
+    -- -- on_attach = on_attach
+  -- -- }
+
+  -- require'lspconfig'.tsserver.setup {
+    -- init_options = { documentFormatting = false },
+    -- on_attach = function(client, bufnr)
+      -- client.resolved_capabilities.document_formatting = false
+      -- on_attach(client, bufnr)
+    -- end,
+  -- }
+
+  -- require'lspconfig'.jdtls.setup {
+    -- cmd = { 'jdtls' },
+    -- on_attach = on_attach
+  -- }
+
+  -- -- JSON {{{
+  -- require'lspconfig'.jsonls.setup {
+    -- on_attach = on_attach,
+    -- capabilities = capabilities,
+    -- settings = {
+      -- json = {
+        -- -- Schemas https://www.schemastore.org
+        -- schemas = {
+          -- {
+            -- fileMatch = {"package.json"},
+            -- url = "https://json.schemastore.org/package.json"
+          -- },
+          -- {
+            -- fileMatch = {"tsconfig.json"},
+            -- url = "https://json.schemastore.org/tsconfig.json"
+          -- },
+          -- {
+            -- fileMatch = {"jsconfig.json"},
+            -- url = "https://json.schemastore.org/jsconfig.json"
+          -- },
+          -- {
+            -- fileMatch = {
+              -- ".prettierrc",
+              -- ".prettierrc.json",
+              -- "prettier.config.json"
+            -- },
+            -- url = "https://json.schemastore.org/prettierrc.json"
+          -- },
+          -- {
+            -- fileMatch = {".eslintrc", ".eslintrc.json"},
+            -- url = "https://json.schemastore.org/eslintrc.json"
+         -- },
+          -- {
+            -- fileMatch = {".babelrc", ".babelrc.json", "babel.config.json"},
+            -- url = "https://json.schemastore.org/babelrc.json"
+          -- },
+          -- {
+            -- fileMatch = {"lerna.json"},
+            -- url = "https://json.schemastore.org/lerna.json"
+          -- },
+          -- {
+            -- fileMatch = {"now.json", "vercel.json"},
+            -- url = "https://json.schemastore.org/now.json"
+          -- },
+          -- {
+            -- fileMatch = {
+              -- ".stylelintrc",
+              -- ".stylelintrc.json",
+              -- "stylelint.config.json"
+            -- },
+            -- url = "http://json.schemastore.org/stylelintrc.json"
+          -- }
+        -- }
+      -- }
+    -- }
+  -- }
+  -- -- }}}
 
 
 
-  -- print(string.format('PRETTIERD_DEFAULT_CONFIG=%s', vim.fn.expand('~/.config/nvim/utils/.prettierrc.json')))
-  local prettier = {
-    formatCommand = 'prettierd "${INPUT}"',
-    formatStdin = true,
-    env = {
-      'PRETTIERD_DEFAULT_CONFIG=/Users/jinhoyoon/.config/nvim/utils/.prettierrc.json',
-    }
-  }
+  -- -- print(string.format('PRETTIERD_DEFAULT_CONFIG=%s', vim.fn.expand('~/.config/nvim/utils/.prettierrc.json')))
+  -- local prettier = {
+    -- formatCommand = 'prettierd "${INPUT}"',
+    -- formatStdin = true,
+    -- env = {
+      -- 'PRETTIERD_DEFAULT_CONFIG=/Users/jinhoyoon/.config/nvim/utils/.prettierrc.json',
+    -- }
+  -- }
 
 
 
-  require'lspconfig'.efm.setup {
-    on_attach = on_attach,
-    init_options = { documentFormatting = true, codeAction = true },
-    settings = {
-      rootMarkers = {'./git'},
-      languages = {
-        javascript = { prettier },
-        javascriptreact = { prettier },
-        typescript = { prettier },
-        typescriptreact = { prettier },
+  -- require'lspconfig'.efm.setup {
+    -- on_attach = on_attach,
+    -- init_options = { documentFormatting = true, codeAction = true },
+    -- settings = {
+      -- rootMarkers = {'./git'},
+      -- languages = {
+        -- javascript = { prettier },
+        -- javascriptreact = { prettier },
+        -- typescript = { prettier },
+        -- typescriptreact = { prettier },
 
-        lua = {
-          {formatCommand = 'lua-format -i', formatStdin = true}
-        }
-      }
-    },
-    filetypes = { 'javascript', 'javascriptreact', 'typescript', 'typescriptreact', 'lua' }
-  }
-end
+        -- lua = {
+          -- {formatCommand = 'lua-format -i', formatStdin = true}
+        -- }
+      -- }
+    -- },
+    -- filetypes = { 'javascript', 'javascriptreact', 'typescript', 'typescriptreact', 'lua' }
+  -- }
+-- end
 
-setup_servers()
+-- setup_servers()
 
-vim.cmd([[ autocmd BufWritePre *.json lua vim.lsp.buf.formatting_sync(nil, 1000) ]])
-vim.cmd([[ autocmd BufWritePre *.js lua vim.lsp.buf.formatting_sync(nil, 1000) ]])
-vim.cmd([[ autocmd BufWritePre *.jsx lua vim.lsp.buf.formatting_sync(nil, 1000) ]])
-vim.cmd([[ autocmd BufWritePre *.tsx lua vim.lsp.buf.formatting_sync(nil, 1000) ]])
-vim.cmd([[ autocmd BufWritePre *.ts lua vim.lsp.buf.formatting_sync(nil, 1000) ]])
+-- vim.cmd([[ autocmd BufWritePre *.json lua vim.lsp.buf.formatting_sync(nil, 1000) ]])
+-- vim.cmd([[ autocmd BufWritePre *.js lua vim.lsp.buf.formatting_sync(nil, 1000) ]])
+-- vim.cmd([[ autocmd BufWritePre *.jsx lua vim.lsp.buf.formatting_sync(nil, 1000) ]])
+-- vim.cmd([[ autocmd BufWritePre *.tsx lua vim.lsp.buf.formatting_sync(nil, 1000) ]])
+-- vim.cmd([[ autocmd BufWritePre *.ts lua vim.lsp.buf.formatting_sync(nil, 1000) ]])
 
--- Automatically reload after `:LspInstall <server>` so we don't have to restart neovim
-require'lspinstall'.post_install_hook = function ()
-  setup_servers() -- reload installed servers
-  vim.cmd("bufdo e") -- this triggers the FileType autocmd that starts the server
-end
+-- -- Automatically reload after `:LspInstall <server>` so we don't have to restart neovim
+-- require'lspinstall'.post_install_hook = function ()
+  -- setup_servers() -- reload installed servers
+  -- vim.cmd("bufdo e") -- this triggers the FileType autocmd that starts the server
+-- end

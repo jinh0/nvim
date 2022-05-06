@@ -49,9 +49,6 @@ M.search_plugins = function()
   })
 end
 
-require('telescope').load_extension('coc')
-require('telescope').load_extension('neoclip')
-
 -- M.spaceduck_colors = function()
   -- pickers.new {
     -- prompt_title = '< SPACEDUCK >',
