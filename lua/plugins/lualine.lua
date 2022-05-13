@@ -10,7 +10,7 @@ require'lualine'.setup {
     lualine_a = {'mode'},
     lualine_b = {'branch'},
     -- lualine_c = {'filename', 'b:coc_current_function'},
-    lualine_c = {'filename', 'diagnostics'},
+    lualine_c = {'diagnostics', 'filename'},
     lualine_x = {'diff'},
     lualine_y = {'filetype'},
     lualine_z = {'location'}

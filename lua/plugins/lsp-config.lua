@@ -80,6 +80,8 @@ require'lspconfig'.tsserver.setup {
   end,
 }
 
+require'lspconfig'.clangd.setup { on_attach = on_attach }
+
 local prettier = {
   formatCommand = 'prettierd "${INPUT}"',
   formatStdin = true,
@@ -103,6 +105,7 @@ require'lspconfig'.efm.setup {
   settings = {
     rootMarkers = {'./git'},
     languages = {
+      json = { prettier },
       javascript = { eslint },
       javascriptreact = { prettier },
       typescript = { eslint },
@@ -113,7 +116,7 @@ require'lspconfig'.efm.setup {
       }
     }
   },
-  filetypes = { 'javascript', 'javascriptreact', 'typescript', 'typescriptreact', 'lua' }
+  filetypes = { 'json', 'javascript', 'javascriptreact', 'typescript', 'typescriptreact', 'lua' }
 }
 
 
@@ -136,6 +139,63 @@ require'lspconfig'.pyright.setup {
   on_attach = on_attach,
 }
 
+require'lspconfig'.eslint.setup { on_attach = on_attach }
+
+require'lspconfig'.jsonls.setup {
+  on_attach = on_attach,
+  capabilities = capabilities,
+  settings = {
+    json = {
+      -- Schemas https://www.schemastore.org
+      schemas = {
+        {
+          fileMatch = {"package.json"},
+          url = "https://json.schemastore.org/package.json"
+        },
+        {
+          fileMatch = {"tsconfig.json"},
+          url = "https://json.schemastore.org/tsconfig.json"
+        },
+        {
+          fileMatch = {"jsconfig.json"},
+          url = "https://json.schemastore.org/jsconfig.json"
+        },
+        {
+          fileMatch = {
+            ".prettierrc",
+            ".prettierrc.json",
+            "prettier.config.json"
+          },
+          url = "https://json.schemastore.org/prettierrc.json"
+        },
+        {
+          fileMatch = {".eslintrc", ".eslintrc.json"},
+          url = "https://json.schemastore.org/eslintrc.json"
+       },
+        {
+          fileMatch = {".babelrc", ".babelrc.json", "babel.config.json"},
+          url = "https://json.schemastore.org/babelrc.json"
+        },
+        {
+          fileMatch = {"lerna.json"},
+          url = "https://json.schemastore.org/lerna.json"
+        },
+        {
+          fileMatch = {"now.json", "vercel.json"},
+          url = "https://json.schemastore.org/now.json"
+        },
+        {
+          fileMatch = {
+            ".stylelintrc",
+            ".stylelintrc.json",
+            "stylelint.config.json"
+          },
+          url = "http://json.schemastore.org/stylelintrc.json"
+        }
+      }
+    }
+  }
+}
 
 
 -- local function setup_servers()
@@ -255,61 +315,6 @@ require'lspconfig'.pyright.setup {
   -- }
 
   -- -- JSON {{{
-  -- require'lspconfig'.jsonls.setup {
-    -- on_attach = on_attach,
-    -- capabilities = capabilities,
-    -- settings = {
-      -- json = {
-        -- -- Schemas https://www.schemastore.org
-        -- schemas = {
-          -- {
-            -- fileMatch = {"package.json"},
-            -- url = "https://json.schemastore.org/package.json"
-          -- },
-          -- {
-            -- fileMatch = {"tsconfig.json"},
-            -- url = "https://json.schemastore.org/tsconfig.json"
-          -- },
-          -- {
-            -- fileMatch = {"jsconfig.json"},
-            -- url = "https://json.schemastore.org/jsconfig.json"
-          -- },
-          -- {
-            -- fileMatch = {
-              -- ".prettierrc",
-              -- ".prettierrc.json",
-              -- "prettier.config.json"
-            -- },
-            -- url = "https://json.schemastore.org/prettierrc.json"
-          -- },
-          -- {
-            -- fileMatch = {".eslintrc", ".eslintrc.json"},
-            -- url = "https://json.schemastore.org/eslintrc.json"
-         -- },
-          -- {
-            -- fileMatch = {".babelrc", ".babelrc.json", "babel.config.json"},
-            -- url = "https://json.schemastore.org/babelrc.json"
-          -- },
-          -- {
-            -- fileMatch = {"lerna.json"},
-            -- url = "https://json.schemastore.org/lerna.json"
-          -- },
-          -- {
-            -- fileMatch = {"now.json", "vercel.json"},
-            -- url = "https://json.schemastore.org/now.json"
-          -- },
-          -- {
-            -- fileMatch = {
-              -- ".stylelintrc",
-              -- ".stylelintrc.json",
-              -- "stylelint.config.json"
-            -- },
-            -- url = "http://json.schemastore.org/stylelintrc.json"
-          -- }
-        -- }
-      -- }
-    -- }
-  -- }
   -- -- }}}
 
 

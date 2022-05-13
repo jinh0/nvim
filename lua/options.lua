@@ -110,6 +110,8 @@ opt.fillchars = 'eob: '
 
 opt.textwidth = 80
 
+opt.hlsearch = true
+
 -- opt.updatetime = 300
 
 -- colorcolumn
