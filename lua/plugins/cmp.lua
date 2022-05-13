@@ -1,6 +1,34 @@
 local cmp = require'cmp'
 local luasnip = require 'luasnip'
 
+local kind_icons = {
+  Text = "",
+  Method = "",
+  Function = "",
+  Constructor = "",
+  Field = "",
+  Variable = "",
+  Class = "ﴯ",
+  Interface = "",
+  Module = "",
+  Property = "ﰠ",
+  Unit = "",
+  Value = "",
+  Enum = "",
+  Keyword = "",
+  Snippet = "",
+  Color = "",
+  File = "",
+  Reference = "",
+  Folder = "",
+  EnumMember = "",
+  Constant = "",
+  Struct = "",
+  Event = "",
+  Operator = "",
+  TypeParameter = ""
+}
+
 -- Global setup.
 cmp.setup({
   snippet = {
@@ -18,7 +46,7 @@ cmp.setup({
   mapping = cmp.mapping.preset.insert({
     ['<C-d>'] = cmp.mapping.scroll_docs(-4),
     ['<C-f>'] = cmp.mapping.scroll_docs(4),
-    ['<C-Space>'] = cmp.mapping.complete(),
+    ['<M-Space>'] = cmp.mapping.complete(),
     ['<CR>'] = cmp.mapping.confirm {
       behavior = cmp.ConfirmBehavior.Replace,
       select = true,
@@ -50,7 +78,7 @@ cmp.setup({
     { name = "buffer" },
     { name = "nvim_lsp_signature_help" },
     -- { name = 'luasnip' },
-  }
+  },
   -- },  sources = cmp.config.sources({
     -- { name = 'nvim_lsp' },
   -- }, {
@@ -60,4 +88,10 @@ cmp.setup({
     -- { name = "buffer" },
     -- { name = "nvim_lsp_signature_help" },
   -- })
+  formatting = {
+    format = function(_, vim_item)
+      vim_item.kind = (kind_icons[vim_item.kind] or '') .. ' ' .. vim_item.kind
+      return vim_item
+    end,
+  }
 })
