@@ -57,7 +57,6 @@ opt.showmode = false       -- Disables bottom-left mode status '--INSERT--'
 opt.re = 0                 -- New regular expression method
 opt.wrap = false
 
-
 opt.laststatus = 3
 
 -- opt.foldmethod = 'marker'
@@ -104,7 +103,7 @@ opt.lazyredraw = true
 
 opt.signcolumn = 'yes'
 
-opt.completeopt = 'menuone,noselect' -- for nvim-compe
+opt.completeopt = 'menu,menuone,noselect' -- for nvim-compe
 
 opt.fillchars = 'eob: '
 

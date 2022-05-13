@@ -22,7 +22,6 @@ return require('packer').startup(function(use)
     event = 'BufRead'
   }
   -- }}}
-
   -- LSP {{{
   use 'jubnzv/virtual-types.nvim'
 
@@ -45,17 +44,33 @@ return require('packer').startup(function(use)
     }
   }
 
+  use 'L3MON4D3/LuaSnip'
+  use 'saadparwaiz1/cmp_luasnip'
+
   use {
-    "hrsh7th/nvim-compe",
-    event = "InsertEnter",
+    "hrsh7th/nvim-cmp",
     config = function()
-        require "plugins.compe"
+        require "plugins.cmp"
     end,
   }
 
+  use "hrsh7th/cmp-nvim-lsp"
+  use "hrsh7th/cmp-nvim-lua"
+  use "hrsh7th/cmp-buffer"
+  use "hrsh7th/cmp-path"
+
+
+  -- use {
+    -- "hrsh7th/nvim-compe",
+    -- event = "InsertEnter",
+    -- config = function()
+        -- require "plugins.compe"
+    -- end,
+  -- }
+
   use {
     "windwp/nvim-autopairs",
-    after = "nvim-compe",
+    -- after = "nvim-compe",
     config = function()
         require "plugins.autopairs"
     end
@@ -193,6 +208,8 @@ return require('packer').startup(function(use)
   use 'arcticicestudio/nord-vim'
 
   use 'sainnhe/everforest'
+
+  use 'mattn/emmet-vim'
 
 end)
 

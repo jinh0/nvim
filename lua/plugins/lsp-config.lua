@@ -37,6 +37,7 @@ local on_attach = function(client, bufnr)
 
   -- lspsaga
   -- vim.cmd([[ autocmd CursorHold * lua require'lspsaga.diagnostic'.show_line_diagnostics() ]])
+  -- buf_set_keymap('n', '<space>rn', '<cmd>lua require("lspsaga.rename").rename()<CR>', opts)
   buf_set_keymap('n', '<space>rn', '<cmd>lua require("lspsaga.rename").rename()<CR>', opts)
 end
 
@@ -195,6 +196,10 @@ require'lspconfig'.jsonls.setup {
       }
     }
   }
+}
+
+require'lspconfig'.tailwindcss.setup {
+  on_attach = on_attach,
 }
 
 
