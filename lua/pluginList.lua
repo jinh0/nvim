@@ -113,13 +113,13 @@ return require('packer').startup(function(use)
     disable = false
   }
 
-  use {
-    '~/dev/eyeliner.nvim',
-    disable = false,
-    config = function()
-      require('eyeliner').setup{}
-    end
-  }
+  -- use {
+    -- '~/dev/eyeliner.nvim',
+    -- disable = false,
+    -- config = function()
+      -- require('eyeliner').setup{}
+    -- end
+  -- }
 
   use {
     'David-Kunz/treesitter-unit',

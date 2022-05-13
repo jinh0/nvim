@@ -81,6 +81,42 @@ require'lspconfig'.tsserver.setup {
   end,
 }
 
+local prettier = {
+  formatCommand = 'prettierd "${INPUT}"',
+  formatStdin = true,
+  env = {
+    'PRETTIERD_DEFAULT_CONFIG=/Users/jinhoyoon/.config/nvim/utils/.prettierrc.json',
+  }
+}
+
+local eslint = {
+  lintCommand = "eslint_d -f unix --stdin --stdin-filename ${INPUT}",
+  lintStdin = true,
+  lintFormats = {"%f:%l:%c: %m"},
+  lintIgnoreExitCode = true,
+  formatCommand = "eslint_d --fix-to-stdout --stdin --stdin-filename=${INPUT}",
+  formatStdin = true
+}
+
+require'lspconfig'.efm.setup {
+  on_attach = on_attach,
+  init_options = { documentFormatting = true, codeAction = true },
+  settings = {
+    rootMarkers = {'./git'},
+    languages = {
+      javascript = { eslint },
+      javascriptreact = { prettier },
+      typescript = { eslint },
+      typescriptreact = { prettier },
+
+      lua = {
+        {formatCommand = 'lua-format -i', formatStdin = true}
+      }
+    }
+  },
+  filetypes = { 'javascript', 'javascriptreact', 'typescript', 'typescriptreact', 'lua' }
+}
+
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities.textDocument.completion.completionItem.snippetSupport = true

@@ -8,11 +8,11 @@ require'lualine'.setup {
   },
   sections = {
     lualine_a = {'mode'},
-    lualine_b = {},
+    lualine_b = {'branch'},
     -- lualine_c = {'filename', 'b:coc_current_function'},
-    lualine_c = {'filename'},
-    lualine_x = {'filetype'},
-    lualine_y = {},
+    lualine_c = {'filename', 'diagnostics'},
+    lualine_x = {'diff'},
+    lualine_y = {'filetype'},
     lualine_z = {'location'}
   },
   inactive_sections = {
