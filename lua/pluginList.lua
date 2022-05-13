@@ -194,6 +194,8 @@ return require('packer').startup(function(use)
 
   use 'sainnhe/everforest'
 
+  use 'mattn/emmet-vim'
+
 end)
 
 -- packer.init {
