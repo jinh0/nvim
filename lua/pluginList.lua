@@ -60,6 +60,7 @@ return require('packer').startup(function(use)
   use "hrsh7th/cmp-path"
 
 
+
   -- use {
     -- "hrsh7th/nvim-compe",
     -- event = "InsertEnter",
@@ -202,11 +203,11 @@ return require('packer').startup(function(use)
     branch = 'dev'
   }
   use 'sainnhe/gruvbox-material'
-  -- use 'christianchiarulli/nvcode-color-schemes.vim'
+  use 'christianchiarulli/nvcode-color-schemes.vim'
   use 'folke/tokyonight.nvim'
   use 'projekt0n/github-nvim-theme'
   use 'arcticicestudio/nord-vim'
-
+  use 'Mofiqul/vscode.nvim'
   use 'sainnhe/everforest'
 
   use 'mattn/emmet-vim'
