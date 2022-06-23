@@ -21,9 +21,19 @@ return require('packer').startup(function(use)
     'nvim-treesitter/playground',
     event = 'BufRead'
   }
+
+  use {
+    'lewis6991/gitsigns.nvim',
+    event = 'BufRead',
+    config = function()
+      require('gitsigns').setup()
+    end
+  }
+
   -- }}}
   -- LSP {{{
   use 'jubnzv/virtual-types.nvim'
+
 
   use {
     "williamboman/nvim-lsp-installer",
@@ -35,14 +45,23 @@ return require('packer').startup(function(use)
       end,
       requires = {
         {
-          'glepnir/lspsaga.nvim',
-          config = function()
-            require 'plugins.lspsaga'
-          end
+          'nvim-lua/lsp-status.nvim'
         }
       }
+      -- requires = {
+        -- {
+          -- 'glepnir/lspsaga.nvim',
+          -- config = function()
+            -- require 'plugins.lspsaga'
+          -- end
+        -- }
+      -- }
     }
   }
+
+  use 'APZelos/blamer.nvim'
+
+  use 'ggandor/lightspeed.nvim'
 
   use 'L3MON4D3/LuaSnip'
   use 'saadparwaiz1/cmp_luasnip'
@@ -67,6 +86,13 @@ return require('packer').startup(function(use)
         -- require "plugins.compe"
     -- end,
   -- }
+
+  use {
+    'rcarriga/nvim-notify',
+    config = function()
+      vim.notify = require('notify')
+    end
+  }
 
   use {
     "windwp/nvim-autopairs",
@@ -158,7 +184,8 @@ return require('packer').startup(function(use)
     'hoob3rt/lualine.nvim',
     config = function()
       require 'plugins.lualine'
-    end
+    end,
+    requires = 'arkav/lualine-lsp-progress'
   }
 
   use 'nvim-lua/lsp-status.nvim'
@@ -173,10 +200,10 @@ return require('packer').startup(function(use)
     end
   }
 
-  use {
-    'airblade/vim-gitgutter',
-    event = 'BufRead'
-  }
+  -- use {
+    -- 'airblade/vim-gitgutter',
+    -- event = 'BufRead'
+  -- }
 
   use 'tpope/vim-surround'
 
@@ -192,7 +219,6 @@ return require('packer').startup(function(use)
 
   use {
     'lukas-reineke/indent-blankline.nvim',
-    disable = opts.indent_blankline,
     event = 'BufRead'
   }
 

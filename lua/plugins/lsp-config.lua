@@ -33,16 +33,19 @@ local on_attach = function(client, bufnr)
   buf_set_keymap('n', ']d', '<cmd>lua require"lspsaga.diagnostic".lsp_jump_diagnostic_next()<CR>', opts)
 
   buf_set_keymap('n', '<space>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
-  buf_set_keymap('n', '<space>f', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
+  buf_set_keymap('n', '<space>f', '<cmd>lua vim.lsp.buf.formatting_sync(nil, 1500)<CR>', opts)
 
   -- lspsaga
   -- vim.cmd([[ autocmd CursorHold * lua require'lspsaga.diagnostic'.show_line_diagnostics() ]])
   -- buf_set_keymap('n', '<space>rn', '<cmd>lua require("lspsaga.rename").rename()<CR>', opts)
-  buf_set_keymap('n', '<space>rn', '<cmd>lua require("lspsaga.rename").rename()<CR>', opts)
+  buf_set_keymap('n', '<space>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
 end
 
+local lsp_status = require('lsp-status')
+lsp_status.register_progress()
 
 local lspconfig = require("lspconfig")
+
 lspconfig.sumneko_lua.setup {
     on_attach = on_attach,
     settings = {
@@ -62,7 +65,6 @@ lspconfig.sumneko_lua.setup {
     }
 }
 
-
 require'lspconfig'.ocamllsp.setup {
   on_attach = function (client, bufnr)
     require'virtualtypes'.on_attach(client, bufnr)
@@ -75,24 +77,33 @@ require'lspconfig'.hls.setup { on_attach = on_attach }
 
 require'lspconfig'.tsserver.setup {
   init_options = { documentFormatting = false },
+  handlers = lsp_status.extensions.clangd.setup(),
   on_attach = function(client, bufnr)
     client.resolved_capabilities.document_formatting = false
+    lsp_status.on_attach(client)
     on_attach(client, bufnr)
   end,
 }
 
-require'lspconfig'.clangd.setup { on_attach = on_attach }
+require'lspconfig'.clangd.setup {
+  handlers = lsp_status.extensions.clangd.setup(),
+  on_attach = function (client, bufnr)
+    lsp_status.on_attach(client)
+    on_attach(client, bufnr)
+  end
+}
 
 local prettier = {
   formatCommand = 'prettierd "${INPUT}"',
   formatStdin = true,
   env = {
-    'PRETTIERD_DEFAULT_CONFIG=/Users/jinhoyoon/.config/nvim/utils/.prettierrc.json',
+    string.format('PRETTIERD_DEFAULT_CONFIG=%s', vim.fn.expand('~/.config/nvim/utils/.prettierrc.json')),
   }
 }
 
+  -- lintCommand = "eslint_d -f unix --stdin --stdin-filename=${INPUT}",
 local eslint = {
-  lintCommand = "eslint_d -f unix --stdin --stdin-filename ${INPUT}",
+  lintCommand = "eslint_d --stdin --fix-to-stdout --stdin-filename=${INPUT}",
   lintStdin = true,
   lintFormats = {"%f:%l:%c: %m"},
   lintIgnoreExitCode = true,
@@ -101,19 +112,23 @@ local eslint = {
 }
 
 require'lspconfig'.efm.setup {
-  on_attach = on_attach,
-  init_options = { documentFormatting = true, codeAction = true },
+  on_attach = function(client)
+    vim.cmd([[ autocmd BufWritePre *.ts lua vim.lsp.buf.formatting_sync({}, 1000) ]])
+  end,
+  cmd = {'efm-langserver', '-logfile', '/tmp/efm.log', '-loglevel', '5'},
+  init_options = { documentFormatting = true },
   settings = {
     rootMarkers = {'./git'},
     languages = {
-      json = { prettier },
-      javascript = { eslint },
-      javascriptreact = { prettier },
-      typescript = { eslint },
-      typescriptreact = { prettier },
-
-      lua = {
-        {formatCommand = 'lua-format -i', formatStdin = true}
+      typescript = {
+        -- {
+          -- lintCommand = "eslint_d --stdin --fix-to-stdout --stdin-filename=${INPUT}",
+          -- lintStdin = true,
+          -- lintFormats = {"%f:%l:%c: %m"},
+          -- lintIgnoreExitCode = true,
+          -- formatCommand = "eslint_d --fix-to-stdout --stdin --stdin-filename=${INPUT}",
+          -- formatStdin = true
+        -- }
       }
     }
   },
@@ -140,7 +155,14 @@ require'lspconfig'.pyright.setup {
   on_attach = on_attach,
 }
 
-require'lspconfig'.eslint.setup { on_attach = on_attach }
+require'lspconfig'.eslint.setup {
+  handlers = lsp_status.extensions.clangd.setup(),
+  on_attach = function (client, bufnr)
+    lsp_status.on_attach(client)
+    on_attach(client, bufnr)
+  end,
+  settings = { documentFormatting = false }
+}
 
 require'lspconfig'.jsonls.setup {
   on_attach = on_attach,
@@ -361,7 +383,6 @@ require'lspconfig'.tailwindcss.setup {
 -- vim.cmd([[ autocmd BufWritePre *.js lua vim.lsp.buf.formatting_sync(nil, 1000) ]])
 -- vim.cmd([[ autocmd BufWritePre *.jsx lua vim.lsp.buf.formatting_sync(nil, 1000) ]])
 -- vim.cmd([[ autocmd BufWritePre *.tsx lua vim.lsp.buf.formatting_sync(nil, 1000) ]])
--- vim.cmd([[ autocmd BufWritePre *.ts lua vim.lsp.buf.formatting_sync(nil, 1000) ]])
 
 -- -- Automatically reload after `:LspInstall <server>` so we don't have to restart neovim
 -- require'lspinstall'.post_install_hook = function ()
