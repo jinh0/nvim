@@ -2,16 +2,30 @@ require'lualine'.setup {
   options = {
     icons_enabled = true,
     theme = 'auto',
-    component_separators = {'>', '<'},
-    section_separators = {'', ''},
+    component_separators = { left = '', right = ''},
+    section_separators = { left = '', right = ''},
     disabled_filetypes = {}
   },
   sections = {
     lualine_a = {'mode'},
-    lualine_b = {'branch'},
-    -- lualine_c = {'filename', 'b:coc_current_function'},
-    lualine_c = {'filename', 'diagnostics'},
-    lualine_x = {'diff'},
+    lualine_b = {
+    },
+    lualine_c = {
+      {
+        'filename',
+        color = { gui = 'bold' }
+      },
+      function ()
+        if #vim.lsp.buf_get_clients() > 0 then
+          require'lsp-status'.update_current_function()
+          return vim.api.nvim_eval('b:lsp_current_function')
+        end
+
+        return ''
+      end,
+      'diagnostics',
+    },
+    lualine_x = {'branch', 'diff'},
     lualine_y = {'filetype'},
     lualine_z = {'location'}
   },

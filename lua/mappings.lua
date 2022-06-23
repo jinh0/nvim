@@ -29,7 +29,7 @@ map('n', '<C-x>', ':TSHighlightCapturesUnderCursor<CR>', opt)
 -- Extra goods
 map('n', '<space><space>', 'za', opt)  -- open fold
 -- map('n', '<C-s>', '<C-^>', opt)        -- jump between (swap)
-map('n', '<leader>ss', ':source %<cr>', opt)        -- jump between (swap)
+-- map('n', '<leader>ss', ':source %<cr>', opt)        -- jump between (swap)
 map('v', '<A-c>', '"+y', opt)
 map('n', '<', '<<', opt)
 map('n', '>', '>>', opt)
@@ -56,6 +56,8 @@ M.telescope = function()
   map('n', '<A-c>', ':Telescope colorscheme<cr>', opt)
   map('n', 'gr', ':Telescope lsp_references<cr>', opt)
   map('n', '<leader>gg', ':Telescope live_grep<cr>', opt)
+  map('n', '<leader>tt', ':Telescope diagnostics<cr>', opt)
+  map('n', '<leader>ss', ':Telescope lsp_document_symbols<cr>', opt)
   map('n', '<leader>cp', ':Telescope neoclip<cr>', opt)
   -- map('n', '<leader>ds', ':Telescope coc document_symbols<cr>', opt)
 

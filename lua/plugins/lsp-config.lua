@@ -33,16 +33,19 @@ local on_attach = function(client, bufnr)
   buf_set_keymap('n', ']d', '<cmd>lua require"lspsaga.diagnostic".lsp_jump_diagnostic_next()<CR>', opts)
 
   buf_set_keymap('n', '<space>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
-  buf_set_keymap('n', '<space>f', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
+  buf_set_keymap('n', '<space>f', '<cmd>lua vim.lsp.buf.formatting_sync(nil, 1500)<CR>', opts)
 
   -- lspsaga
   -- vim.cmd([[ autocmd CursorHold * lua require'lspsaga.diagnostic'.show_line_diagnostics() ]])
   -- buf_set_keymap('n', '<space>rn', '<cmd>lua require("lspsaga.rename").rename()<CR>', opts)
-  buf_set_keymap('n', '<space>rn', '<cmd>lua require("lspsaga.rename").rename()<CR>', opts)
+  buf_set_keymap('n', '<space>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
 end
 
+local lsp_status = require('lsp-status')
+lsp_status.register_progress()
 
 local lspconfig = require("lspconfig")
+
 lspconfig.sumneko_lua.setup {
     on_attach = on_attach,
     settings = {
@@ -62,7 +65,6 @@ lspconfig.sumneko_lua.setup {
     }
 }
 
-
 require'lspconfig'.ocamllsp.setup {
   init_options = { documentFormatting = false },
   on_attach = function (client, bufnr)
@@ -76,22 +78,33 @@ require'lspconfig'.hls.setup { on_attach = on_attach }
 
 require'lspconfig'.tsserver.setup {
   init_options = { documentFormatting = false },
+  handlers = lsp_status.extensions.clangd.setup(),
   on_attach = function(client, bufnr)
     client.resolved_capabilities.document_formatting = false
+    lsp_status.on_attach(client)
     on_attach(client, bufnr)
   end,
+}
+
+require'lspconfig'.clangd.setup {
+  handlers = lsp_status.extensions.clangd.setup(),
+  on_attach = function (client, bufnr)
+    lsp_status.on_attach(client)
+    on_attach(client, bufnr)
+  end
 }
 
 local prettier = {
   formatCommand = 'prettierd "${INPUT}"',
   formatStdin = true,
   env = {
-    'PRETTIERD_DEFAULT_CONFIG=/Users/jinhoyoon/.config/nvim/utils/.prettierrc.json',
+    string.format('PRETTIERD_DEFAULT_CONFIG=%s', vim.fn.expand('~/.config/nvim/utils/.prettierrc.json')),
   }
 }
 
+  -- lintCommand = "eslint_d -f unix --stdin --stdin-filename=${INPUT}",
 local eslint = {
-  lintCommand = "eslint_d -f unix --stdin --stdin-filename ${INPUT}",
+  lintCommand = "eslint_d --stdin --fix-to-stdout --stdin-filename=${INPUT}",
   lintStdin = true,
   lintFormats = {"%f:%l:%c: %m"},
   lintIgnoreExitCode = true,
@@ -100,20 +113,27 @@ local eslint = {
 }
 
 require'lspconfig'.efm.setup {
-  on_attach = on_attach,
-  init_options = { documentFormatting = true, codeAction = true },
+  on_attach = function(client)
+    vim.cmd([[ autocmd BufWritePre *.ts lua vim.lsp.buf.formatting_sync({}, 1000) ]])
+  end,
+  cmd = {'efm-langserver', '-logfile', '/tmp/efm.log', '-loglevel', '5'},
+  init_options = { documentFormatting = true },
   settings = {
     rootMarkers = {'./git'},
     languages = {
-      -- ocaml = {
+      typescript = {
         -- {
-          -- formatCommand = 'ocamlformat -',
+          -- lintCommand = "eslint_d --stdin --fix-to-stdout --stdin-filename=${INPUT}",
+          -- lintStdin = true,
+          -- lintFormats = {"%f:%l:%c: %m"},
+          -- lintIgnoreExitCode = true,
+          -- formatCommand = "eslint_d --fix-to-stdout --stdin --stdin-filename=${INPUT}",
           -- formatStdin = true
         -- }
-      -- }
+      }
     }
   },
-  filetypes = { 'javascript', 'javascriptreact', 'typescript', 'typescriptreact', 'lua', 'ocaml' }
+  filetypes = { 'json', 'javascript', 'javascriptreact', 'typescript', 'typescriptreact', 'lua' }
 }
 
 
@@ -134,6 +154,71 @@ require'lspconfig'.html.setup {
 
 require'lspconfig'.pyright.setup {
   on_attach = on_attach,
+}
+
+require'lspconfig'.eslint.setup {
+  handlers = lsp_status.extensions.clangd.setup(),
+  on_attach = function (client, bufnr)
+    lsp_status.on_attach(client)
+    on_attach(client, bufnr)
+  end,
+  settings = { documentFormatting = false }
+}
+
+require'lspconfig'.jsonls.setup {
+  on_attach = on_attach,
+  capabilities = capabilities,
+  settings = {
+    json = {
+      -- Schemas https://www.schemastore.org
+      schemas = {
+        {
+          fileMatch = {"package.json"},
+          url = "https://json.schemastore.org/package.json"
+        },
+        {
+          fileMatch = {"tsconfig.json"},
+          url = "https://json.schemastore.org/tsconfig.json"
+        },
+        {
+          fileMatch = {"jsconfig.json"},
+          url = "https://json.schemastore.org/jsconfig.json"
+        },
+        {
+          fileMatch = {
+            ".prettierrc",
+            ".prettierrc.json",
+            "prettier.config.json"
+          },
+          url = "https://json.schemastore.org/prettierrc.json"
+        },
+        {
+          fileMatch = {".eslintrc", ".eslintrc.json"},
+          url = "https://json.schemastore.org/eslintrc.json"
+       },
+        {
+          fileMatch = {".babelrc", ".babelrc.json", "babel.config.json"},
+          url = "https://json.schemastore.org/babelrc.json"
+        },
+        {
+          fileMatch = {"lerna.json"},
+          url = "https://json.schemastore.org/lerna.json"
+        },
+        {
+          fileMatch = {"now.json", "vercel.json"},
+          url = "https://json.schemastore.org/now.json"
+        },
+        {
+          fileMatch = {
+            ".stylelintrc",
+            ".stylelintrc.json",
+            "stylelint.config.json"
+          },
+          url = "http://json.schemastore.org/stylelintrc.json"
+        }
+      }
+    }
+  }
 }
 
 require'lspconfig'.tailwindcss.setup {
@@ -258,61 +343,6 @@ require'lspconfig'.tailwindcss.setup {
   -- }
 
   -- -- JSON {{{
-  -- require'lspconfig'.jsonls.setup {
-    -- on_attach = on_attach,
-    -- capabilities = capabilities,
-    -- settings = {
-      -- json = {
-        -- -- Schemas https://www.schemastore.org
-        -- schemas = {
-          -- {
-            -- fileMatch = {"package.json"},
-            -- url = "https://json.schemastore.org/package.json"
-          -- },
-          -- {
-            -- fileMatch = {"tsconfig.json"},
-            -- url = "https://json.schemastore.org/tsconfig.json"
-          -- },
-          -- {
-            -- fileMatch = {"jsconfig.json"},
-            -- url = "https://json.schemastore.org/jsconfig.json"
-          -- },
-          -- {
-            -- fileMatch = {
-              -- ".prettierrc",
-              -- ".prettierrc.json",
-              -- "prettier.config.json"
-            -- },
-            -- url = "https://json.schemastore.org/prettierrc.json"
-          -- },
-          -- {
-            -- fileMatch = {".eslintrc", ".eslintrc.json"},
-            -- url = "https://json.schemastore.org/eslintrc.json"
-         -- },
-          -- {
-            -- fileMatch = {".babelrc", ".babelrc.json", "babel.config.json"},
-            -- url = "https://json.schemastore.org/babelrc.json"
-          -- },
-          -- {
-            -- fileMatch = {"lerna.json"},
-            -- url = "https://json.schemastore.org/lerna.json"
-          -- },
-          -- {
-            -- fileMatch = {"now.json", "vercel.json"},
-            -- url = "https://json.schemastore.org/now.json"
-          -- },
-          -- {
-            -- fileMatch = {
-              -- ".stylelintrc",
-              -- ".stylelintrc.json",
-              -- "stylelint.config.json"
-            -- },
-            -- url = "http://json.schemastore.org/stylelintrc.json"
-          -- }
-        -- }
-      -- }
-    -- }
-  -- }
   -- -- }}}
 
 

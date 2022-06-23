@@ -15,6 +15,9 @@ vim.g.vimtex_compiler_latexmk = {
   options = {'-shell-escape'}
 }
 
+vim.g.blamer_enabled = 1
+vim.g.user_emmet_install_global = 0
+
 -- Disable built-in plugins {{{
 local disabled_built_ins = {
    "2html_plugin",
@@ -109,6 +112,8 @@ opt.fillchars = 'eob: '
 
 opt.textwidth = 80
 
+opt.hlsearch = true
+
 -- opt.updatetime = 300
 
 -- colorcolumn
@@ -124,3 +129,7 @@ vim.cmd([[
     -- autocmd BufWinEnter * silent! loadview
   -- augroup END
 -- ]])
+
+vim.cmd([[
+  autocmd FileType html,css EmmetInstall
+]])
