@@ -10,8 +10,6 @@ return require('packer').startup(function(use)
   -- TREESITTER {{{
   use {
     'nvim-treesitter/nvim-treesitter',
-    event = {"BufRead", "BufNewFile"},
-    run = ':TSUpdate',
     config = function()
       require 'plugins.treesitter'
     end
@@ -78,16 +76,6 @@ return require('packer').startup(function(use)
   use "hrsh7th/cmp-buffer"
   use "hrsh7th/cmp-path"
 
-
-
-  -- use {
-    -- "hrsh7th/nvim-compe",
-    -- event = "InsertEnter",
-    -- config = function()
-        -- require "plugins.compe"
-    -- end,
-  -- }
-
   use {
     'rcarriga/nvim-notify',
     config = function()
@@ -97,7 +85,6 @@ return require('packer').startup(function(use)
 
   use {
     "windwp/nvim-autopairs",
-    -- after = "nvim-compe",
     config = function()
         require "plugins.autopairs"
     end
@@ -155,13 +142,13 @@ return require('packer').startup(function(use)
     disable = false
   }
 
-  -- use {
-    -- '~/dev/eyeliner.nvim',
-    -- disable = false,
-    -- config = function()
-      -- require('eyeliner').setup{}
-    -- end
-  -- }
+  use {
+    '~/dev/eyeliner.nvim',
+    config = function()
+      vim.api.nvim_set_hl(0, 'EyelinerPrimary', { bold = true, underline = true })
+      vim.api.nvim_set_hl(0, 'EyelinerSecondary', { underline = true })
+    end,
+  }
 
   use {
     'David-Kunz/treesitter-unit',
@@ -200,11 +187,6 @@ return require('packer').startup(function(use)
       require'nvim-tree'.setup {}
     end
   }
-
-  -- use {
-    -- 'airblade/vim-gitgutter',
-    -- event = 'BufRead'
-  -- }
 
   use 'tpope/vim-surround'
 

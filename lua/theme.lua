@@ -9,4 +9,5 @@ g.rose_pine_variant = 'moon'
 
 vim.cmd('colorscheme ' .. cs)
 
+-- vim.cmd('hi EyelinerPrimary guifg=#ffffff')
 -- require('github-theme').setup()
