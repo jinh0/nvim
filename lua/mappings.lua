@@ -57,7 +57,7 @@ M.telescope = function()
   map('n', 'gr', ':Telescope lsp_references<cr>', opt)
   map('n', '<leader>gg', ':Telescope live_grep<cr>', opt)
   map('n', '<leader>tt', ':Telescope diagnostics<cr>', opt)
-  map('n', '<leader>ss', ':Telescope lsp_document_symbols<cr>', opt)
+  map('n', '<leader>ss', ':Telescope lsp_dynamic_workspace_symbols<cr>', opt)
   map('n', '<leader>cp', ':Telescope neoclip<cr>', opt)
   -- map('n', '<leader>ds', ':Telescope coc document_symbols<cr>', opt)
 

@@ -9,4 +9,5 @@ g.rose_pine_variant = 'moon'
 
 vim.cmd('colorscheme ' .. cs)
 
+-- vim.api.nvim_set_hl(0, 'EyelinerPrimary', { bold = true, underline = true })
 -- require('github-theme').setup()

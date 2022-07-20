@@ -10,7 +10,7 @@ return require('packer').startup(function(use)
   -- TREESITTER {{{
   use {
     'nvim-treesitter/nvim-treesitter',
-    event = {"BufRead", "BufNewFile"},
+    -- event = {"BufRead", "BufNewFile"},
     run = ':TSUpdate',
     config = function()
       require 'plugins.treesitter'
@@ -154,13 +154,22 @@ return require('packer').startup(function(use)
     disable = false
   }
 
-  -- use {
-    -- '~/dev/eyeliner.nvim',
-    -- disable = false,
+  use {
+    'jinh0/eyeliner.nvim',
     -- config = function()
-      -- require('eyeliner').setup{}
+      -- require'eyeliner'.setup {
+        -- bold = true,
+        -- underline = false
+      -- }
+
+      -- -- vim.api.nvim_create_autocmd('ColorScheme', {
+        -- -- pattern = '*',
+        -- -- callback = function ()
+          -- -- vim.api.nvim_set_hl(0, 'EyelinerSecondary', { underline = true })
+        -- -- end,
+      -- -- })
     -- end
-  -- }
+  }
 
   use {
     'David-Kunz/treesitter-unit',
@@ -196,7 +205,6 @@ return require('packer').startup(function(use)
     cmd = 'NvimTreeToggle',
     config = function()
       require 'plugins.nvimtree'
-      require'nvim-tree'.setup {}
     end
   }
 
@@ -236,6 +244,8 @@ return require('packer').startup(function(use)
   use 'sainnhe/everforest'
 
   use 'mattn/emmet-vim'
+
+  use 'Mofiqul/vscode.nvim'
 
 end)
 
