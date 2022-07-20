@@ -66,6 +66,7 @@ lspconfig.sumneko_lua.setup {
 }
 
 require'lspconfig'.ocamllsp.setup {
+  init_options = { documentFormatting = false },
   on_attach = function (client, bufnr)
     require'virtualtypes'.on_attach(client, bufnr)
     on_attach(client, bufnr)
@@ -383,6 +384,7 @@ require'lspconfig'.tailwindcss.setup {
 -- vim.cmd([[ autocmd BufWritePre *.js lua vim.lsp.buf.formatting_sync(nil, 1000) ]])
 -- vim.cmd([[ autocmd BufWritePre *.jsx lua vim.lsp.buf.formatting_sync(nil, 1000) ]])
 -- vim.cmd([[ autocmd BufWritePre *.tsx lua vim.lsp.buf.formatting_sync(nil, 1000) ]])
+-- vim.cmd([[ autocmd BufWritePre *.ml lua vim.lsp.buf.formatting_sync({}, 1000) ]])
 
 -- -- Automatically reload after `:LspInstall <server>` so we don't have to restart neovim
 -- require'lspinstall'.post_install_hook = function ()
