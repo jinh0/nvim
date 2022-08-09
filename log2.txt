@@ -1,0 +1,87 @@
+
+
+times in msec
+ clock   self+sourced   self:  sourced script
+ clock   elapsed:              other lines
+
+000.004  000.004: --- NVIM STARTING ---
+000.355  000.351: locale set
+000.563  000.208: inits 1
+000.574  000.010: window checked
+000.575  000.002: parsing arguments
+001.904  001.329: expanding arguments
+001.937  000.033: inits 2
+002.238  000.301: init highlight
+002.238  000.001: waiting for UI
+003.346  001.108: done waiting for UI
+003.352  000.006: init screen for UI
+003.366  000.013: init default mappings
+003.392  000.026: init default autocommands
+004.348  000.044  000.044: sourcing /opt/homebrew/Cellar/neovim/0.7.0/share/nvim/runtime/ftplugin.vim
+004.523  000.019  000.019: sourcing /opt/homebrew/Cellar/neovim/0.7.0/share/nvim/runtime/indent.vim
+011.332  003.462  003.462: sourcing /Users/jinhoyoon/.local/share/nvim/site/pack/packer/start/tokyonight.nvim/colors/tokyonight.vim
+013.147  008.547  005.085: sourcing /Users/jinhoyoon/.config/nvim/init.lua
+013.169  001.167: sourcing vimrc file(s)
+013.455  000.041  000.041: sourcing /opt/homebrew/Cellar/neovim/0.7.0/share/nvim/runtime/filetype.lua
+016.707  000.008  000.008: sourcing /Users/jinhoyoon/.local/share/nvim/site/pack/packer/start/LuaSnip/ftdetect/snippets.vim
+016.851  000.015  000.015: sourcing /Users/jinhoyoon/.local/share/nvim/site/pack/packer/start/vimtex/ftdetect/cls.vim
+016.890  000.012  000.012: sourcing /Users/jinhoyoon/.local/share/nvim/site/pack/packer/start/vimtex/ftdetect/tex.vim
+016.926  000.010  000.010: sourcing /Users/jinhoyoon/.local/share/nvim/site/pack/packer/start/vimtex/ftdetect/tikz.vim
+017.004  000.012  000.012: sourcing /Users/jinhoyoon/.local/share/nvim/site/pack/packer/start/yats.vim/ftdetect/typescript.vim
+017.040  000.011  000.011: sourcing /Users/jinhoyoon/.local/share/nvim/site/pack/packer/start/yats.vim/ftdetect/typescriptreact.vim
+017.304  003.820  003.751: sourcing /opt/homebrew/Cellar/neovim/0.7.0/share/nvim/runtime/filetype.vim
+017.603  000.057  000.057: sourcing /opt/homebrew/Cellar/neovim/0.7.0/share/nvim/runtime/syntax/synload.vim
+017.646  000.261  000.204: sourcing /opt/homebrew/Cellar/neovim/0.7.0/share/nvim/runtime/syntax/syntax.vim
+018.811  000.010  000.010: sourcing /opt/homebrew/Cellar/neovim/0.7.0/share/nvim/runtime/plugin/gzip.vim
+018.837  000.007  000.007: sourcing /opt/homebrew/Cellar/neovim/0.7.0/share/nvim/runtime/plugin/health.vim
+018.885  000.031  000.031: sourcing /opt/homebrew/Cellar/neovim/0.7.0/share/nvim/runtime/plugin/man.vim
+018.911  000.008  000.008: sourcing /opt/homebrew/Cellar/neovim/0.7.0/share/nvim/runtime/plugin/matchit.vim
+019.029  000.100  000.100: sourcing /opt/homebrew/Cellar/neovim/0.7.0/share/nvim/runtime/plugin/matchparen.vim
+019.060  000.012  000.012: sourcing /opt/homebrew/Cellar/neovim/0.7.0/share/nvim/runtime/plugin/netrwPlugin.vim
+019.170  000.006  000.006: sourcing /Users/jinhoyoon/.local/share/nvim/rplugin.vim
+019.172  000.095  000.088: sourcing /opt/homebrew/Cellar/neovim/0.7.0/share/nvim/runtime/plugin/rplugin.vim
+019.233  000.044  000.044: sourcing /opt/homebrew/Cellar/neovim/0.7.0/share/nvim/runtime/plugin/shada.vim
+019.263  000.009  000.009: sourcing /opt/homebrew/Cellar/neovim/0.7.0/share/nvim/runtime/plugin/spellfile.vim
+019.294  000.011  000.011: sourcing /opt/homebrew/Cellar/neovim/0.7.0/share/nvim/runtime/plugin/tarPlugin.vim
+019.321  000.009  000.009: sourcing /opt/homebrew/Cellar/neovim/0.7.0/share/nvim/runtime/plugin/tohtml.vim
+019.351  000.013  000.013: sourcing /opt/homebrew/Cellar/neovim/0.7.0/share/nvim/runtime/plugin/tutor.vim
+019.381  000.012  000.012: sourcing /opt/homebrew/Cellar/neovim/0.7.0/share/nvim/runtime/plugin/zipPlugin.vim
+057.986  002.276  002.276: sourcing /Users/jinhoyoon/.local/share/nvim/site/pack/packer/opt/symbols-outline.nvim/plugin/symbols-outline.vim
+060.565  000.028  000.028: sourcing /Users/jinhoyoon/.local/share/nvim/site/pack/packer/start/plenary.nvim/plugin/plenary.vim
+060.955  041.477  039.173: sourcing /Users/jinhoyoon/.config/nvim/plugin/packer_compiled.lua
+061.325  002.196: loading rtp plugins
+067.237  005.424  005.424: sourcing /Users/jinhoyoon/.local/share/nvim/site/pack/packer/start/barbar.nvim/plugin/bufferline.lua
+067.716  000.197  000.197: sourcing /Users/jinhoyoon/.local/share/nvim/site/pack/packer/start/blamer.nvim/autoload/blamer.vim
+067.756  000.317  000.120: sourcing /Users/jinhoyoon/.local/share/nvim/site/pack/packer/start/blamer.nvim/plugin/blamer.vim
+068.291  000.098  000.098: sourcing /Users/jinhoyoon/.local/share/nvim/site/pack/packer/start/emmet-vim/plugin/emmet.vim
+068.573  000.064  000.064: sourcing /Users/jinhoyoon/.local/share/nvim/site/pack/packer/start/eyeliner.nvim/plugin/eyeliner.vim
+069.794  000.906  000.906: sourcing /Users/jinhoyoon/.local/share/nvim/site/pack/packer/start/lightspeed.nvim/plugin/init.lua
+070.172  000.131  000.131: sourcing /Users/jinhoyoon/.local/share/nvim/site/pack/packer/start/LuaSnip/plugin/luasnip.vim
+071.277  000.955  000.955: sourcing /Users/jinhoyoon/.local/share/nvim/site/pack/packer/start/nerdcommenter/plugin/nerdcommenter.vim
+072.025  000.401  000.401: sourcing /Users/jinhoyoon/.local/share/nvim/site/pack/packer/start/nvim-cmp/plugin/cmp.lua
+072.194  000.063  000.063: sourcing /Users/jinhoyoon/.local/share/nvim/site/pack/packer/start/nvim-lsp-installer/plugin/nvim-lsp-installer.vim
+072.406  000.053  000.053: sourcing /Users/jinhoyoon/.local/share/nvim/site/pack/packer/start/nvim-lspconfig/plugin/lspconfig.vim
+073.561  000.811  000.811: sourcing /Users/jinhoyoon/.local/share/nvim/site/pack/packer/start/nvim-treesitter/plugin/nvim-treesitter.lua
+073.763  000.052  000.052: sourcing /Users/jinhoyoon/.local/share/nvim/site/pack/packer/start/nvim-web-devicons/plugin/nvim-web-devicons.vim
+074.037  000.030  000.030: sourcing /Users/jinhoyoon/.local/share/nvim/site/pack/packer/start/plenary.nvim/plugin/plenary.vim
+074.304  000.079  000.079: sourcing /Users/jinhoyoon/.local/share/nvim/site/pack/packer/start/tagalong.vim/plugin/tagalong.vim
+074.804  000.276  000.276: sourcing /Users/jinhoyoon/.local/share/nvim/site/pack/packer/start/vim-surround/plugin/surround.vim
+074.988  000.026  000.026: sourcing /Users/jinhoyoon/.local/share/nvim/site/pack/packer/start/vimtex/plugin/vimtex.vim
+075.205  000.040  000.040: sourcing /Users/jinhoyoon/.local/share/nvim/site/pack/packer/start/virtual-types.nvim/plugin/virtualtypes.vim
+075.448  004.397: loading packages
+076.374  000.470  000.470: sourcing /Users/jinhoyoon/.local/share/nvim/site/pack/packer/start/cmp-buffer/after/plugin/cmp_buffer.lua
+076.712  000.241  000.241: sourcing /Users/jinhoyoon/.local/share/nvim/site/pack/packer/start/cmp-nvim-lsp/after/plugin/cmp_nvim_lsp.lua
+076.929  000.108  000.108: sourcing /Users/jinhoyoon/.local/share/nvim/site/pack/packer/start/cmp-nvim-lua/after/plugin/cmp_nvim_lua.lua
+077.204  000.192  000.192: sourcing /Users/jinhoyoon/.local/share/nvim/site/pack/packer/start/cmp-path/after/plugin/cmp_path.lua
+077.495  000.196  000.196: sourcing /Users/jinhoyoon/.local/share/nvim/site/pack/packer/start/cmp_luasnip/after/plugin/cmp_luasnip.lua
+077.557  000.902: loading after plugins
+077.564  000.007: inits 3
+079.790  002.226: reading ShaDa
+080.053  000.263: opening buffers
+088.853  008.800: BufEnter autocommands
+088.856  000.003: editing files in windows
+088.884  000.028: VimEnter autocommands
+088.886  000.002: UIEnter autocommands
+088.886  000.001: before starting main loop
+091.137  002.251: first screen update
+091.139  000.002: --- NVIM STARTED ---

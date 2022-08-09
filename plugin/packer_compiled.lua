@@ -242,7 +242,7 @@ _G.packer_plugins = {
   },
   ["nvim-tree.lua"] = {
     commands = { "NvimTreeToggle" },
-    config = { "\27LJ\2\nž\1\0\0\6\0\n\0\r6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\b\0005\3\6\0005\4\4\0005\5\3\0=\5\5\4=\4\a\3=\3\t\2B\0\2\1K\0\1\0\rrenderer\1\0\0\nicons\1\0\1\18highlight_git\2\tshow\1\0\0\1\0\3\17folder_arrow\2\tfile\2\vfolder\2\nsetup\14nvim-tree\frequire\0" },
+    config = { "\27LJ\2\nï¿½\1\0\0\6\0\n\0\r6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\b\0005\3\6\0005\4\4\0005\5\3\0=\5\5\4=\4\a\3=\3\t\2B\0\2\1K\0\1\0\rrenderer\1\0\0\nicons\1\0\1\18highlight_git\2\tshow\1\0\0\1\0\3\17folder_arrow\2\tfile\2\vfolder\2\nsetup\14nvim-tree\frequire\0" },
     loaded = false,
     needs_bufread = false,
     only_cond = false,
