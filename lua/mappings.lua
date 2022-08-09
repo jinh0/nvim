@@ -1,6 +1,6 @@
-local map = vim.api.nvim_set_keymap
+local map = vim.keymap.set
 
-local opt = { silent = true, noremap = true }
+local opt = { silent = true }
 
 local M = {}
 
@@ -28,8 +28,6 @@ map('n', '<C-x>', ':TSHighlightCapturesUnderCursor<CR>', opt)
 
 -- Extra goods
 map('n', '<space><space>', 'za', opt)  -- open fold
--- map('n', '<C-s>', '<C-^>', opt)        -- jump between (swap)
--- map('n', '<leader>ss', ':source %<cr>', opt)        -- jump between (swap)
 map('v', '<A-c>', '"+y', opt)
 map('n', '<', '<<', opt)
 map('n', '>', '>>', opt)
@@ -49,8 +47,6 @@ map('n', '++', '<plug>NERDCommenterToggle', { noremap = false })
 -- NvimTree
 map('n', '<C-t>', ':NvimTreeToggle<CR>', opt)
 
--- map('n', '<C-t>', ':TreeToggle<CR>', opt)
-
 M.telescope = function()
   map('n', '<C-p>', ':Telescope find_files<cr>', opt)
   map('n', '<A-c>', ':Telescope colorscheme<cr>', opt)
@@ -58,19 +54,8 @@ M.telescope = function()
   map('n', '<leader>gg', ':Telescope live_grep<cr>', opt)
   map('n', '<leader>tt', ':Telescope diagnostics<cr>', opt)
   map('n', '<leader>ss', ':Telescope lsp_document_symbols<cr>', opt)
-  map('n', '<leader>cp', ':Telescope neoclip<cr>', opt)
-  -- map('n', '<leader>ds', ':Telescope coc document_symbols<cr>', opt)
-
   map('n', '<A-p>', ':lua require("telescope.builtin").buffers()<cr>', opt)
   map('n', '<leader>pp', ':lua require("plugins.telescope").search_dotfiles()<cr>', opt)
-end
-
-M.tsunit = function()
-  map('n', 'dx', ':lua require"treesitter-unit".delete()<CR>', opt)
-  map('x', 'iu', ':lua require"treesitter-unit".select()<CR>', opt)
-  map('x', 'au', ':lua require"treesitter-unit".select(true)<CR>', opt)
-  map('o', 'iu', ':<c-u>lua require"treesitter-unit".select()<CR>', opt)
-  map('o', 'au', ':<c-u>lua require"treesitter-unit".select(true)<CR>', opt)
 end
 
 M.symbols_outline = function()
@@ -84,9 +69,13 @@ end
 
 map('n', '<A-,>', ':BufferPrevious<CR>', opt)
 map('n', '<A-.>', ':BufferNext<CR>', opt)
+map('n', 'H', ':BufferPrevious<CR>', opt)
+map('n', 'L', ':BufferNext<CR>', opt)
+
 -- Re-order to previous/next
 map('n', '<A-<>', ':BufferMovePrevious<CR>', opt)
 map('n', '<A->>', ' :BufferMoveNext<CR>', opt)
+
 -- Goto buffer in position...
 map('n', '<A-1>', ':BufferGoto 1<CR>', opt)
 map('n', '<A-2>', ':BufferGoto 2<CR>', opt)
@@ -101,14 +90,7 @@ map('n', '<A-0>', ':BufferLast<CR>', opt)
 -- Close buffer
 map('n', '<A-w>', ':BufferClose<CR>', opt)
 
--- map('n', '<C-c>', ':!g++ -std=c++17 % -Wall -g -o %.out && %.out<CR>', opt)
-
 map('n', 'dw', 'daw', opt)
 map('n', 'dW', 'daW', opt)
-
--- vim.cmd([[
--- nnoremap <C-o> gg/freopen<Enter><C-v>jj<s-i>//<Esc>:w<Enter>:noh<Enter>
--- nnoremap <C-i> gg/freopen<Enter>h<C-v>hjjd:w<Enter>:noh<Enter>
--- ]])
 
 return M

@@ -18,7 +18,7 @@ vim.g.vimtex_compiler_latexmk = {
 vim.g.blamer_enabled = 1
 vim.g.user_emmet_install_global = 0
 
--- Disable built-in plugins {{{
+-- Disable built-in plugins
 local disabled_built_ins = {
    "2html_plugin",
    "getscript",
@@ -43,7 +43,6 @@ local disabled_built_ins = {
 for _, plugin in pairs(disabled_built_ins) do
    vim.g["loaded_" .. plugin] = 1
 end
--- }}}
 
 -- disable :intro screen
 vim.o.shortmess = vim.o.shortmess .. 'I'
@@ -73,18 +72,6 @@ opt.smartcase = true
 
 -- FOLDS
 opt.foldmethod = 'indent'
-
--- vim.cmd([[
--- " Callback: Fold level <- next line indent
--- function! FoldMethod(lnum)
-    -- let l:indent = max([indent(a:lnum+1), indent(a:lnum)])
-    -- return l:indent / &shiftwidth
--- endfunction
-
--- set foldmethod=expr
--- set foldexpr=FoldMethod(v:lnum)
--- ]])
-
 opt.foldlevelstart = 30
 
 -- TABS
@@ -92,7 +79,6 @@ opt.tabstop = 2
 opt.shiftwidth = 2
 opt.smarttab = true
 opt.expandtab = true -- always uses spaces instead of tab characters
--- opt.cindent = true
 
 opt.splitbelow = true
 opt.splitright = true
@@ -101,34 +87,16 @@ opt.splitright = true
 -- outside of Vim
 opt.autoread = true
 opt.autowrite = true
-
 opt.lazyredraw = true
-
 opt.signcolumn = 'yes'
-
 opt.completeopt = 'menu,menuone,noselect' -- for nvim-compe
-
 opt.fillchars = 'eob: '
-
 opt.textwidth = 80
-
 opt.hlsearch = true
-
--- opt.updatetime = 300
-
--- colorcolumn
 
 vim.cmd([[
   au TextYankPost * lua vim.highlight.on_yank {higroup="Visual", timeout=300, on_visual=true}
 ]])
-
--- vim.cmd([[
-  -- augroup remember_folds
-    -- autocmd!
-    -- autocmd BufWinLeave * mkview
-    -- autocmd BufWinEnter * silent! loadview
-  -- augroup END
--- ]])
 
 vim.cmd([[
   autocmd FileType html,css EmmetInstall

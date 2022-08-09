@@ -44,22 +44,14 @@ end
 local lsp_status = require('lsp-status')
 lsp_status.register_progress()
 
-local lspconfig = require("lspconfig")
+-- local lspconfig = require("lspconfig")
 
-lspconfig.sumneko_lua.setup {
+require'lspconfig'.sumneko_lua.setup {
     on_attach = on_attach,
     settings = {
       Lua = {
         diagnostics = {
           globals = {'vim'}
-        },
-        workspace = {
-          library = {
-            [vim.fn.expand("$VIMRUNTIME/lua")] = true,
-            [vim.fn.expand("$VIMRUNTIME/lua/vim/lsp")] = true
-          },
-          maxPreload = 100000,
-          preloadFileSize = 10000
         },
       }
     }
@@ -72,6 +64,10 @@ require'lspconfig'.ocamllsp.setup {
     on_attach(client, bufnr)
   end,
   filetypes = { "ocaml", "ocaml.menhir", "ocaml.interface", "ocaml.ocamllex", "reason", "ml" }
+}
+
+require'lspconfig'.racket_langserver.setup {
+  on_attach = on_attach
 }
 
 require'lspconfig'.hls.setup { on_attach = on_attach }
@@ -112,29 +108,29 @@ local eslint = {
   formatStdin = true
 }
 
-require'lspconfig'.efm.setup {
-  on_attach = function(client)
-    vim.cmd([[ autocmd BufWritePre *.ts lua vim.lsp.buf.formatting_sync({}, 1000) ]])
-  end,
-  cmd = {'efm-langserver', '-logfile', '/tmp/efm.log', '-loglevel', '5'},
-  init_options = { documentFormatting = true },
-  settings = {
-    rootMarkers = {'./git'},
-    languages = {
-      typescript = {
-        -- {
-          -- lintCommand = "eslint_d --stdin --fix-to-stdout --stdin-filename=${INPUT}",
-          -- lintStdin = true,
-          -- lintFormats = {"%f:%l:%c: %m"},
-          -- lintIgnoreExitCode = true,
-          -- formatCommand = "eslint_d --fix-to-stdout --stdin --stdin-filename=${INPUT}",
-          -- formatStdin = true
-        -- }
-      }
-    }
-  },
-  filetypes = { 'json', 'javascript', 'javascriptreact', 'typescript', 'typescriptreact', 'lua' }
-}
+-- require'lspconfig'.efm.setup {
+  -- on_attach = function(client)
+    -- vim.cmd([[ autocmd BufWritePre *.ts lua vim.lsp.buf.formatting_sync({}, 1000) ]])
+  -- end,
+  -- cmd = {'efm-langserver', '-logfile', '/tmp/efm.log', '-loglevel', '5'},
+  -- init_options = { documentFormatting = true },
+  -- settings = {
+    -- rootMarkers = {'./git'},
+    -- languages = {
+      -- typescript = {
+        -- -- {
+          -- -- lintCommand = "eslint_d --stdin --fix-to-stdout --stdin-filename=${INPUT}",
+          -- -- lintStdin = true,
+          -- -- lintFormats = {"%f:%l:%c: %m"},
+          -- -- lintIgnoreExitCode = true,
+          -- -- formatCommand = "eslint_d --fix-to-stdout --stdin --stdin-filename=${INPUT}",
+          -- -- formatStdin = true
+        -- -- }
+      -- }
+    -- }
+  -- },
+  -- filetypes = { 'json', 'javascript', 'javascriptreact', 'typescript', 'typescriptreact', 'lua' }
+-- }
 
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
@@ -154,6 +150,13 @@ require'lspconfig'.html.setup {
 
 require'lspconfig'.pyright.setup {
   on_attach = on_attach,
+  settings = {
+    python = {
+      analysis = {
+        typeCheckingMode = 'strict'
+      }
+    }
+  }
 }
 
 require'lspconfig'.eslint.setup {
@@ -221,8 +224,17 @@ require'lspconfig'.jsonls.setup {
   }
 }
 
-require'lspconfig'.tailwindcss.setup {
-  on_attach = on_attach,
+-- require'lspconfig'.tailwindcss.setup {
+  -- on_attach = on_attach,
+-- }
+
+
+require'lspconfig'.tsserver.setup {
+  init_options = { documentFormatting = false },
+  on_attach = function(client, bufnr)
+    client.resolved_capabilities.document_formatting = false
+    on_attach(client, bufnr)
+  end,
 }
 
 
@@ -328,14 +340,6 @@ require'lspconfig'.tailwindcss.setup {
   -- -- require'lspconfig'.clangd.setup{
     -- -- on_attach = on_attach
   -- -- }
-
-  -- require'lspconfig'.tsserver.setup {
-    -- init_options = { documentFormatting = false },
-    -- on_attach = function(client, bufnr)
-      -- client.resolved_capabilities.document_formatting = false
-      -- on_attach(client, bufnr)
-    -- end,
-  -- }
 
   -- require'lspconfig'.jdtls.setup {
     -- cmd = { 'jdtls' },

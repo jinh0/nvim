@@ -1,5 +1,7 @@
-require('options')
-require('pluginList')
-require('theme')
-require('mappings')
-require('plugins.extras')
+require 'impatient'
+
+require 'options'
+require 'plugins'
+require 'theme'
+require 'mappings'
+require 'plugins.extras'

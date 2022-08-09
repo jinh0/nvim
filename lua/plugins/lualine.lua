@@ -17,6 +17,12 @@ require'lualine'.setup {
       },
       function ()
         if #vim.lsp.buf_get_clients() > 0 then
+          -- vim.notify(vim.inspect(require'lsp-status'.capabilities))
+
+          if not require'lsp-status'.capabilities.textDocument.documentSymbol then
+            return ''
+          end
+
           require'lsp-status'.update_current_function()
           return vim.api.nvim_eval('b:lsp_current_function')
         end
