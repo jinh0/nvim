@@ -2,9 +2,11 @@ require'lualine'.setup {
   options = {
     icons_enabled = true,
     theme = 'auto',
-    component_separators = { left = '', right = ''},
-    section_separators = { left = '', right = ''},
-    disabled_filetypes = {}
+    -- component_separators = { left = '', right = ''},
+    -- section_separators = { left = '', right = ''},
+    -- component_separators = '|',
+    -- section_separators = { left = '', right = '' },
+    -- disabled_filetypes = {}
   },
   sections = {
     lualine_a = {'mode'},
@@ -16,16 +18,16 @@ require'lualine'.setup {
         color = { gui = 'bold' }
       },
       function ()
-        if #vim.lsp.buf_get_clients() > 0 then
-          -- vim.notify(vim.inspect(require'lsp-status'.capabilities))
+        -- if #vim.lsp.buf_get_clients() > 0 then
+          -- -- vim.notify(vim.inspect(require'lsp-status'.capabilities))
 
-          if not require'lsp-status'.capabilities.textDocument.documentSymbol then
-            return ''
-          end
+          -- -- if require'lsp-status'.capabilities.textDocument.documentSymbol == nil then
+            -- -- return ''
+          -- -- end
 
-          require'lsp-status'.update_current_function()
-          return vim.api.nvim_eval('b:lsp_current_function')
-        end
+          -- -- require'lsp-status'.update_current_function()
+          -- -- return vim.api.nvim_eval('b:lsp_current_function')
+        -- end
 
         return ''
       end,

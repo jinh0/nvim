@@ -1,0 +1,22 @@
+-- NORD
+-- vim.cmd([[ highlight! link TSPunctSpecial TSOperator ]])
+-- vim.cmd([[ highlight! link TSPunctDelimiter TSComment ]])
+-- vim.cmd([[ highlight! TSKeyword guifg=#81A1C1 gui=bold]])
+-- vim.cmd([[ highlight! TSKeywordFunction guifg=#81A1C1 gui=bold]])
+-- vim.cmd([[ highlight! TSType guifg=#8FBCBB ]])
+-- vim.cmd([[ highlight! TSTypeBuiltin guifg=#8FBCBB ]])
+-- vim.cmd([[ highlight! TSTypeBuiltin guifg=#8FBCBB ]])
+-- vim.cmd([[ highlight! TSConstant guifg=#B48EAD ]])
+-- vim.cmd([[ highlight! TSConstBuiltin guifg=#B48EAD ]])
+-- -- vim.cmd([[ highlight! TSVariableBuiltin guifg=#B48EAD ]])
+-- vim.cmd([[ highlight! Hlargs guifg=#D08770 ]])
+-- vim.cmd([[ highlight! BufferCurrentMod guifg=#8FBCBB ]])
+
+-- vim.cmd([[ highlight! link CmpItemKindFunction TSFunction ]])
+-- vim.cmd([[ highlight! link ocamlTSFunction TSFunction ]])
+-- vim.cmd([[ highlight! link CmpItemKindMethod TSMethod ]])
+-- vim.cmd([[ highlight! CmpItemAbbrMatch guifg=#88C0D0 ]])
+-- vim.cmd([[ highlight! CmpItemAbbrMatchFuzzy guifg=#88C0D0 ]])
+
+-- vim.cmd([[ highlight! EyelinerPrimary guifg=#D08770 gui=bold ]])
+-- vim.cmd([[ highlight! EyelinerSecondary guifg=#EBCB8B gui=bold ]])

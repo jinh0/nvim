@@ -32,8 +32,8 @@ map('v', '<A-c>', '"+y', opt)
 map('n', '<', '<<', opt)
 map('n', '>', '>>', opt)
 
--- map('v', 'J', ":m '>+1<CR>gv=gv", opt) -- select and move lines
--- map('v', 'K', ":m '<-2<CR>gv=gv", opt) -- select and move lines
+map('v', 'J', ":m '>+1<CR>gv=gv", opt) -- select and move lines
+map('v', 'K', ":m '<-2<CR>gv=gv", opt) -- select and move lines
 
 -- User commands
 vim.cmd([[
@@ -66,8 +66,8 @@ M.symbols_outline = function()
 end
 
 M.toggleterm = function()
-  -- map('n', '<C-_>', ':ToggleTerm<CR>', opt)
-  -- map('t', '<C-_>', '<esc>:ToggleTerm<CR>', opt)
+  map('n', '<C-_>', ':ToggleTerm<CR>', opt)
+  map('t', '<C-_>', '<esc>:ToggleTerm<CR>', opt)
 end
 
 map('n', '<A-,>', ':BufferPrevious<CR>', opt)

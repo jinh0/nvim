@@ -15,8 +15,12 @@ vim.g.vimtex_compiler_latexmk = {
   options = {'-shell-escape'}
 }
 
+vim.opt.conceallevel = 2
+vim.g.tex_conceal='abdgms'
+vim.g.tex_flavor="latex"
+
 vim.g.blamer_enabled = 1
-vim.g.user_emmet_install_global = 0
+-- vim.g.user_emmet_install_global = 0
 
 -- Disable built-in plugins
 local disabled_built_ins = {
@@ -91,7 +95,7 @@ opt.lazyredraw = true
 opt.signcolumn = 'yes'
 opt.completeopt = 'menu,menuone,noselect' -- for nvim-compe
 opt.fillchars = 'eob: '
-opt.textwidth = 80
+-- opt.textwidth = 80
 opt.hlsearch = true
 
 vim.cmd([[

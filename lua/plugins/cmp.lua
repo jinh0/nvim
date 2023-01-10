@@ -29,6 +29,11 @@ local kind_icons = {
   TypeParameter = ""
 }
 
+local has_words_before = function()
+  local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+  return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
+end
+
 -- Global setup.
 cmp.setup({
   snippet = {
@@ -39,9 +44,27 @@ cmp.setup({
       -- -- vim.fn["UltiSnips#Anon"](args.body) -- For `ultisnips` users.
     end,
   },
-  window = {
+  -- window = {
     -- completion = cmp.config.window.bordered(),
     -- documentation = cmp.config.window.bordered(),
+  -- },
+  window = {
+    completion = {
+      winhighlight = "Normal:Pmenu,FloatBorder:Pmenu,Search:None",
+      col_offset = -3,
+      side_padding = 0,
+    },
+  },
+  formatting = {
+    fields = { "kind", "abbr", "menu" },
+    format = function(entry, vim_item)
+      local kind = require("lspkind").cmp_format({ mode = "symbol_text", maxwidth = 50 })(entry, vim_item)
+      local strings = vim.split(kind.kind, "%s", { trimempty = true })
+      kind.kind = " " .. strings[1] .. " "
+      kind.menu = "    (" .. strings[2] .. ")"
+
+      return kind
+    end,
   },
   mapping = cmp.mapping.preset.insert({
     ['<C-d>'] = cmp.mapping.scroll_docs(-4),
@@ -51,16 +74,19 @@ cmp.setup({
       behavior = cmp.ConfirmBehavior.Replace,
       select = true,
     },
-    ['<Tab>'] = cmp.mapping(function(fallback)
+    ["<Tab>"] = cmp.mapping(function(fallback)
       if cmp.visible() then
         cmp.select_next_item()
       elseif luasnip.expand_or_jumpable() then
         luasnip.expand_or_jump()
+      elseif has_words_before() then
+        cmp.complete()
       else
         fallback()
       end
-    end, { 'i', 's' }),
-    ['<S-Tab>'] = cmp.mapping(function(fallback)
+    end, { "i", "s" }),
+
+    ["<S-Tab>"] = cmp.mapping(function(fallback)
       if cmp.visible() then
         cmp.select_prev_item()
       elseif luasnip.jumpable(-1) then
@@ -68,7 +94,7 @@ cmp.setup({
       else
         fallback()
       end
-    end, { 'i', 's' }),
+    end, { "i", "s" }),
   }),
   sources = {
     { name = 'nvim_lsp' },
@@ -77,7 +103,8 @@ cmp.setup({
     { name = "path" },
     { name = "buffer" },
     { name = "nvim_lsp_signature_help" },
-    -- { name = 'luasnip' },
+    { name = 'luasnip' },
+    { name = 'conjure' },
   },
   -- },  sources = cmp.config.sources({
     -- { name = 'nvim_lsp' },
@@ -88,10 +115,10 @@ cmp.setup({
     -- { name = "buffer" },
     -- { name = "nvim_lsp_signature_help" },
   -- })
-  formatting = {
-    format = function(_, vim_item)
-      vim_item.kind = (kind_icons[vim_item.kind] or '') .. ' ' .. vim_item.kind
-      return vim_item
-    end,
-  }
+  -- formatting = {
+    -- format = function(_, vim_item)
+      -- vim_item.kind = (kind_icons[vim_item.kind] or '') .. ' ' .. vim_item.kind
+      -- return vim_item
+    -- end,
+  -- }
 })
