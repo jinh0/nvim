@@ -106,19 +106,4 @@ cmp.setup({
     { name = 'luasnip' },
     { name = 'conjure' },
   },
-  -- },  sources = cmp.config.sources({
-    -- { name = 'nvim_lsp' },
-  -- }, {
-    -- { name = "nvim_lua" },
-    -- { name = "vsnip" },
-    -- { name = "path" },
-    -- { name = "buffer" },
-    -- { name = "nvim_lsp_signature_help" },
-  -- })
-  -- formatting = {
-    -- format = function(_, vim_item)
-      -- vim_item.kind = (kind_icons[vim_item.kind] or '') .. ' ' .. vim_item.kind
-      -- return vim_item
-    -- end,
-  -- }
 })

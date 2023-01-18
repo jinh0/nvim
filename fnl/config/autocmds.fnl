@@ -1,9 +1,12 @@
-(local autocmd! vim.api.nvim_create_autocmd)
-(local augroup! vim.api.nvim_create_augroup)
+(import-macros {: set! : autocmd!} :config.macros)
 
-(autocmd! "BufWritePost"
-          {:group (augroup! "FennelMake" {:clear true})
-           :callback (fn [] (vim.cmd "silent !make"))
-           :pattern "*.fnl"})
+(autocmd! BufRead * (fn [] vim.notify "hello"))
 
+;; For auto compiling Fennel into Lua code in certain directories
+(autocmd! BufWritePost *.fnl (fn [] (vim.cmd "silent !make")))
 
+;; If working on LaTeX, auto hard wrap text at 80
+(autocmd! FileType *.tex (fn [] (set! textwidth 80)))
+
+(autocmd! TextYankPost *
+          (fn [] (vim.highlight.on_yank {:higroup :Visual :timeout 300 :on_visual true})))

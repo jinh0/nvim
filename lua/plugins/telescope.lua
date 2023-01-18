@@ -24,37 +24,5 @@ require('telescope').setup {
 }
 
 local M = {}
-M.search_dotfiles = function()
-  require('telescope.builtin').find_files({
-    prompt_title = '< VIM config >',
-    cwd = '/Users/jinhoyoon/.config/nvim/',
-    -- mappings = {
-      -- i = {
-        -- ['<cr>'] = actions.select_default + actions.center,
-        -- ['<esc>'] = actions.close
-      -- }
-    -- }
-  })
-end
-
-M.search_plugins = function()
-  require('telescope.builtin').file_browser({
-    prompt_title = '< Plugins >',
-    cwd = '/Users/jinhoyoon/.local/share/nvim/site/pack/packer/start',
-    mappings = {
-      i = {
-        ['<cr>'] = actions.select_default + actions.center
-      }
-    }
-  })
-end
-
--- M.spaceduck_colors = function()
-  -- pickers.new {
-    -- prompt_title = '< SPACEDUCK >',
-    -- finder = finders.new_table({ 'SpaceduckRed', 'SpaceduckOrange', 'SpaceduckGreen', 'SpaceduckYellow', 'SpaceduckPurple', 'SpaceduckPurple2', 'SpaceduckDarkPurple', 'SpaceduckDarkPurple2'}),
-    -- sorter = sorters.get_fzy_sorter()
-  -- }:find()
--- end
 
 return M

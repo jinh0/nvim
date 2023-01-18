@@ -11,62 +11,66 @@ return require'packer'.startup(function(use)
   -- Packer can manage itself
   use 'wbthomason/packer.nvim'
 
-  use 'rktjmp/hotpot.nvim'
-
   -- Make Neovim faster
   use 'nathom/filetype.nvim'
   use 'lewis6991/impatient.nvim'
 
   -- Nice-to-haves
+  use {
+    "windwp/nvim-autopairs",
+    config = function()
+        require "config.plugins.autopairs"
+    end
+  }
+
   use 'preservim/nerdcommenter'
+
+  -- Aesthetics
+  use { 'lukas-reineke/indent-blankline.nvim', event = 'BufRead' }
 
   use {
     'rcarriga/nvim-notify',
     config = function()
-      require('notify').setup { timeout = 50, stages = "static" }
+      require('notify').setup { stages = "static" }
       vim.notify = require('notify')
     end
   }
 
-  use 'Olical/aniseed'
+  -- Fennel / Lisp Tools
   use 'Olical/conjure'
 
   use {
-    "windwp/nvim-autopairs",
+    'rktjmp/hotpot.nvim',
     config = function()
-        require "plugins.autopairs"
+      require("hotpot").setup({
+        enable_hotpot_diagnostics = true,
+        compiler = {
+          macros = {
+            env = "_COMPILER",
+            compilerEnv = _G,
+            allowedGlobals = false,
+          }
+        }
+      })
     end
   }
 
+  use 'gpanders/nvim-parinfer'
+
+  use 'dstein64/vim-startuptime'
+
   use {
-    'jinh0/eyeliner.nvim',
+    '~/dev/eyeliner.nvim',
     config = function()
-      require"eyeliner".setup {
+      require'eyeliner'.setup {
         highlight_on_key = true,
         dim = true,
       }
     end,
-    keys = {"f", "F", "t", "T"}
   }
-
-  use 'dstein64/vim-startuptime'
-
-  -- use {
-    -- '~/dev/eyeliner.nvim',
-    -- config = function()
-      -- require'eyeliner'.setup {
-        -- highlight_on_key = true,
-        -- dim = true,
-      -- }
-    -- end,
-    -- keys = {"f", "F", "t", "T"}
-  -- }
-
-  use "rafamadriz/friendly-snippets"
 
   use 'kyazdani42/nvim-web-devicons'
 
-  use { 'lukas-reineke/indent-blankline.nvim', event = 'BufRead' }
 
   -- Treesitter
   use {
@@ -100,18 +104,6 @@ return require'packer'.startup(function(use)
     end
   }
 
-  use {
-    "folke/twilight.nvim",
-    config = function()
-      require("twilight").setup {
-        -- your configuration comes here
-        -- or leave it empty to use the default settings
-        -- refer to the configuration section below
-      }
-    end
-  }
-
-
   -- Git
   use {
     'lewis6991/gitsigns.nvim',
@@ -137,13 +129,15 @@ return require'packer'.startup(function(use)
   use "hrsh7th/cmp-path"
   use 'PaterJason/cmp-conjure'
 
+  use "rafamadriz/friendly-snippets"
+
   use {
     'L3MON4D3/LuaSnip',
     config = function()
-      -- require("luasnip.loaders.from_vscode").lazy_load()
       require("luasnip.loaders.from_snipmate").lazy_load({ path = { "/Users/jinhoyoon/.config/nvim/snippets" } })
     end
   }
+
   use 'saadparwaiz1/cmp_luasnip'
 
   -- LSP
@@ -153,7 +147,6 @@ return require'packer'.startup(function(use)
       "neovim/nvim-lspconfig",
     }
 
-  use 'jubnzv/virtual-types.nvim'
   use {
     'onsails/lspkind-nvim',
     event = 'InsertEnter',
@@ -162,28 +155,21 @@ return require'packer'.startup(function(use)
     end
   }
 
-  -- use {
-    -- 'simrat39/symbols-outline.nvim',
-    -- cmd = 'SymbolsOutline',
-    -- after = 'nvim-lspconfig',
-    -- setup = function()
-      -- require("symbols-outline").setup( { width = 25 })
-      -- require 'mappings'.symbols_outline()
-    -- end
-  -- }
+  use 'jubnzv/virtual-types.nvim'
 
+  use {
+    'simrat39/symbols-outline.nvim',
+    cmd = 'SymbolsOutline',
+    after = 'nvim-lspconfig',
+    config = function ()
+      require 'symbols-outline'.setup()
+    end
+  }
 
-  -- use 'ggandor/lightspeed.nvim'
-
-  -- use {'unblevable/quick-scope',
-    -- config = function()
-      -- vim.g.qs_highlight_on_keys = {'f', 'F', 't', 'T'}
-    -- end,
-  -- }
-
-  -- File-dependent nice-to-haves
+  -- LaTeX
   use 'lervag/vimtex'
-  use 'gpanders/nvim-parinfer'
+
+  -- HTML/JSX
   use 'AndrewRadev/tagalong.vim'
   use 'mattn/emmet-vim'
 
@@ -197,12 +183,9 @@ return require'packer'.startup(function(use)
     config = function()
       require 'plugins.telescope'
     end,
-    setup = function()
-      require 'mappings'.telescope()
-    end
   }
 
-  -- UI
+  -- UI Extensions
   use {
     'romgrk/barbar.nvim',
     config = function()
@@ -212,7 +195,6 @@ return require'packer'.startup(function(use)
 
   use {
     'hoob3rt/lualine.nvim',
-    requires = 'arkav/lualine-lsp-progress',
     config = function()
       require 'plugins.lualine'
     end,
@@ -226,7 +208,11 @@ return require'packer'.startup(function(use)
       require'nvim-tree'.setup {
         renderer = {
           icons = {
-            show = { file = true, folder = true, folder_arrow = true }
+            show = {
+              file = true,
+              folder = true,
+              folder_arrow = true
+            }
           },
           highlight_git = true
         }
@@ -234,12 +220,15 @@ return require'packer'.startup(function(use)
     end
   }
 
-  use 'akinsho/nvim-toggleterm.lua'
+  use {
+    'akinsho/nvim-toggleterm.lua',
+    config = function()
+      require('toggleterm').setup {
+        open_mapping = [[<c-_>]]
+      }
+    end
+  }
 
   -- Colorschemes
-  use { 'pineapplegiant/spaceduck', branch = 'dev' }
   use 'folke/tokyonight.nvim'
-  use 'arcticicestudio/nord-vim'
-  use 'Mofiqul/vscode.nvim'
-  use { "catppuccin/nvim", as = "catppuccin" }
 end)

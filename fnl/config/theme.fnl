@@ -1,1 +1,10 @@
-(vim.cmd.colorscheme :tokyonight)
+(local hl! (partial vim.api.nvim_set_hl 0))
+(macro colorscheme [scheme]
+  '(vim.cmd.colorscheme ,(tostring scheme)))
+
+;; Set colorscheme
+(colorscheme tokyonight)
+
+;; Color brackets as comment color
+(hl! "@punctuation.bracket" {:link "Comment"})
+
