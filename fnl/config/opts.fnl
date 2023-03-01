@@ -12,11 +12,13 @@
 (set! cursorline)
 (set! cmdheight 1)
 (set! scrolloff 8)
-(set! wrap)
-(set! textwidth 80)
+; (set! wrap)
+; (set! textwidth 80)
 
 (set! splitbelow)
 (set! splitright)
+
+(set! updatetime 50)
 
 ;; Search
 ; (set! hlsearch) what does this do?
@@ -46,3 +48,4 @@
 ;; nvim-cmp
 (set! completeopt "menu,menuone,noselect")
 
+(set! laststatus 3)

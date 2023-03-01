@@ -1,7 +1,5 @@
 (import-macros {: set! : autocmd!} :config.macros)
 
-(autocmd! BufRead * (fn [] vim.notify "hello"))
-
 ;; For auto compiling Fennel into Lua code in certain directories
 (autocmd! BufWritePost *.fnl (fn [] (vim.cmd "silent !make")))
 

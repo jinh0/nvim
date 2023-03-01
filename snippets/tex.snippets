@@ -2,3 +2,72 @@ snippet beg "begin{} / end{}" wA
 	\begin{$1}
 		$0
 	\end{$1}
+
+snippet items "items" wA
+	\begin{itemize}
+		\item $0
+	\end{itemize}
+
+snippet enums "enums" wA
+	\begin{enumerate}
+		\item $0
+	\end{enumerate}
+
+snippet vec "vec" wA
+  \begin{pmatrix}
+    $0_1 \\\\
+    \vdots \\\\
+    $0_n 
+  \end{pmatrix}
+
+snippet \and "and" wA
+  \land
+
+snippet \or "or" wA
+  \lor
+
+snippet \imp "implies" wA
+  \supset
+
+snippet \proof "proof" wA
+  \begin{prooftree}
+    \AxiomC{$0}
+  \end{prooftree}
+
+snippet \assum "assum" wA
+	\AxiomC{}
+	\RightLabel{\$$0\$}
+	\UnaryInfC{\$ \$}
+
+snippet \impE "impE" wA
+	\RightLabel{\$\\supset E\$}
+	\BinaryInfC{\$0\$}
+
+snippet \impI "impI" wA
+	\RightLabel{\$\\supset I^{$0}\$}
+	\UnaryInfC{\$ \$}
+
+snippet \andI "andI" wA
+	\RightLabel{\$\\land I\$}
+	\BinaryInfC{\$$0\$}
+
+snippet \andEl "andE" wA
+	\RightLabel{\$\\land E_l\$}
+	\UnaryInfC{\$$0\$}
+
+snippet \andEr "andE" wA
+	\RightLabel{\$\\land E_r\$}
+	\UnaryInfC{\$$0\$}
+
+snippet \orIl "orIl" wA
+	\RightLabel{\$\\lor I_l\$}
+	\UnaryInfC{\$$0\$}
+
+snippet \orIr "orIr" wA
+	\RightLabel{\$\\lor I_r\$}
+	\UnaryInfC{\$$0\$}
+
+snippet \orE "orE" wA
+	\RightLabel{\$\\lor E\$}
+	\TrinaryInfC{\$$0\$}
+

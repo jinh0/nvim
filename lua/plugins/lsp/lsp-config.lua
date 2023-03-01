@@ -50,7 +50,7 @@ require'lspconfig'.ocamllsp.setup {
     require'virtualtypes'.on_attach(client, bufnr)
     on_attach(client, bufnr)
   end,
-  filetypes = { "ocaml", "ocaml.menhir", "ocaml.interface", "ocaml.ocamllex", "reason", "ml" }
+  filetypes = { "ocaml", "ocaml.interface", "reason", "ml" }
 }
 
 require'lspconfig'.racket_langserver.setup {
@@ -207,6 +207,16 @@ require'lspconfig'.tailwindcss.setup {
   filetypes = { 'typescriptreact', 'html', 'javascriptreact' }
 }
 
+require'lspconfig'['rust_analyzer'].setup {
+  on_attach = on_attach,
+}
+
+require'lspconfig'.svelte.setup {
+  on_attach = function(client, bufnr)
+    on_attach(client, bufnr)
+  end,
+}
+
 
 require'lspconfig'.tsserver.setup {
   init_options = { documentFormatting = false },
@@ -221,3 +231,4 @@ vim.cmd([[ autocmd BufWritePre *.json lua vim.lsp.buf.format({ timeout_ms = 1000
 vim.cmd([[ autocmd BufWritePre *.jsx lua vim.lsp.buf.format({ timeout_ms = 1000, async = false, filter = function (client) return client.name ~= "tsserver" end }) ]])
 vim.cmd([[ autocmd BufWritePre *.ts lua vim.lsp.buf.format({ timeout_ms = 1000, async = false, filter = function (client) return client.name ~= "tsserver" end }) ]])
 vim.cmd([[ autocmd BufWritePre *.tsx lua vim.lsp.buf.format({ timeout_ms = 1000, async = false, filter = function (client) return client.name ~= "tsserver" end }) ]])
+vim.cmd([[ autocmd BufWritePre *.svelte lua vim.lsp.buf.format({ timeout_ms = 100 }) ]])

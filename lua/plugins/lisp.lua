@@ -1,11 +1,11 @@
 return {
   {
     'Olical/conjure',
-    ft = {"clojure", "fennel", "scm"}
+    ft = {"clojure", "fennel", "scheme"}
   },
 
   {
     'gpanders/nvim-parinfer',
-    ft = {"clojure", "fennel", "scm"}
+    ft = {"clojure", "fennel", "scheme"}
   },
 }

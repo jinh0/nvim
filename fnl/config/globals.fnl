@@ -5,8 +5,11 @@
 (let! maplocalleader ",")
 
 ;; https://github.com/neovim/neovim/issues/2437
-(let! loaded_python_provider 1)
-(let! loaded_python3_provider 1)
+; (let! loaded_python_provider 1)
+; (let! loaded_python3_provider 1)
+
+(let! gruvbox_material_background "hard")
+(let! gruvbox_material_better_performance 1)
 
 ;; TODO: move this with blamer
 (let! blamer_enabled 1)
@@ -18,7 +21,9 @@
 
 (let! vimtex_view_method "skim")
 (let! vimtex_compiler_latexmk {:options ["-shell-escape"]})
-(let! vimtex_quickfix_ignore_filters ["Marginpar on page"])
+(let! vimtex_quickfix_ignore_filters ["Marginpar on page" "Overfull"])
+
+(let! coqtail_nomap 1)
 
 ;; NERDCommenter
 (let! NERDCreateDefaultMappings 1)

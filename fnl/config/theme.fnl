@@ -7,4 +7,3 @@
 
 ;; Color brackets as comment color
 (hl! "@punctuation.bracket" {:link "Comment"})
-

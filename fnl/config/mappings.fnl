@@ -53,13 +53,15 @@
 
 (map! n <C-x> ":TSHighlightCapturesUnderCursor<CR>")
 
-(map! nv ++ <plug>NERDCommenterToggle)
+(map! n ++ "<Plug>(comment_toggle_linewise_current)")
+(map! v ++ "<Plug>(comment_toggle_linewise_visual)")
 
 (map! n <C-t> ":NvimTreeToggle<CR>")
 
 ;; Move to Telescope config
 (map! n <C-p> ":Telescope find_files<cr>")
 (map! n <A-c> ":Telescope colorscheme<cr>")
+(map! n <A-p> ":Telescope projects<cr>")
 (map! n gr ":Telescope lsp_references<cr>")
 (map! n <leader>gg ":Telescope live_grep<cr>")
 (map! n <leader>tt ":Telescope diagnostics<cr>")

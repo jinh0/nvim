@@ -3,7 +3,24 @@ return {
     "rktjmp/hotpot.nvim",
     priority = 1000,
     config = function()
-      require"hotpot"
+      require "hotpot"
+    end
+  },
+
+  {
+    'whonore/Coqtail',
+    config = function ()
+      vim.cmd [[
+        hi! link CoqtailChecked Visual
+        hi! link Todo CursorLine
+      ]]
+    end
+  },
+
+  {
+    'ethanholz/nvim-lastplace',
+    config = function()
+      require'nvim-lastplace'.setup{}
     end
   },
 
@@ -21,8 +38,11 @@ return {
   },
 
   {
-    'preservim/nerdcommenter',
-    keys = "++"
+    'numToStr/Comment.nvim',
+    event = "VeryLazy",
+    config = function()
+      require('Comment').setup()
+    end
   },
 
   -- Aesthetics
@@ -34,7 +54,7 @@ return {
   {
     'rcarriga/nvim-notify',
     config = function()
-      require('notify').setup { stages = "static" }
+      require('notify').setup { stages = "static", timeout = 1000 }
       vim.notify = require('notify')
     end
   },
@@ -49,16 +69,15 @@ return {
     'lewis6991/gitsigns.nvim',
     event = "BufReadPre",
     config = function()
-      require'gitsigns'.setup()
+      require'gitsigns'.setup({
+        current_line_blame = false,
+      })
     end
   },
 
-  'APZelos/blamer.nvim',
-
-  "rafamadriz/friendly-snippets",
-
   {
     'L3MON4D3/LuaSnip',
+    dependencies = { "rafamadriz/friendly-snippets" },
     event = "InsertEnter",
     config = function()
       require("luasnip.loaders.from_snipmate").lazy_load({ path = { "/Users/jinhoyoon/.config/nvim/snippets" } })
@@ -66,9 +85,18 @@ return {
   },
 
   -- LSP
-  "williamboman/mason.nvim",
-  "williamboman/mason-lspconfig.nvim",
-  "neovim/nvim-lspconfig",
+  {
+    "neovim/nvim-lspconfig",
+    dependencies = {
+      "williamboman/mason.nvim",
+      "williamboman/mason-lspconfig.nvim",
+    },
+    config = function ()
+      require 'plugins.lsp.lsp-config'
+      require("mason").setup()
+      require "mason-lspconfig".setup()
+    end
+  },
 
   {
     'onsails/lspkind-nvim',
@@ -98,7 +126,10 @@ return {
   },
 
   -- HTML/JSX
-  'AndrewRadev/tagalong.vim',
+  {
+    'AndrewRadev/tagalong.vim',
+    ft = {"html", "javascriptreact", "typescriptreact"}
+  },
 
   {
     'mattn/emmet-vim',
@@ -107,46 +138,8 @@ return {
   },
 
   -- Telescope
-  {
-    "nvim-lua/plenary.nvim",
-    lazy = true
-  },
-
-  {
-    "nvim-lua/popup.nvim",
-    lazy = true
-  },
-
-  {
-    'nvim-telescope/telescope.nvim',
-    cmd = {'Telescope', 'TelescopeBuffers', 'TelescopeDotfiles'},
-    config = function()
-      local actions = require('telescope.actions')
-
-      require('telescope').setup {
-        defaults = {
-          file_ignore_patterns = {'dist', 'node_modules', 'build'},
-          prompt_title = false,
-          mappings = {
-            i = {
-              ['<cr>'] = actions.select_default + actions.center,
-              ['<esc>'] = actions.close,
-              ['<C-p>'] = actions.close,
-              ['<C-k>'] = actions.move_selection_previous,
-              ['<C-j>'] = actions.move_selection_next,
-            }
-          },
-        },
-        pickers = {
-          find_files = {
-            theme = 'dropdown',
-            previewer = false,
-            sort_lastused = true
-          }
-        }
-      }
-    end,
-  },
+  { "nvim-lua/plenary.nvim", lazy = true },
+  { "nvim-lua/popup.nvim", lazy = true },
 
   -- UI Extensions
   {
@@ -167,6 +160,12 @@ return {
     cmd = 'NvimTreeToggle',
     config = function()
       require'nvim-tree'.setup {
+        sync_root_with_cwd = true,
+        respect_buf_cwd = true,
+        update_focused_file = {
+          enable = true,
+          update_root = true
+        },
         renderer = {
           icons = {
             show = {
@@ -191,9 +190,35 @@ return {
     end
   },
 
-  -- Colorschemes
   {
-    'folke/tokyonight.nvim',
-    lazy = true,
+    'tzachar/local-highlight.nvim',
+    config = function()
+      require('local-highlight').setup({
+        hlgroup = 'CursorLine',
+        cw_hlgroup = 'Visual'
+      })
+    end
+  },
+
+  {
+    'github/copilot.vim',
+    init = function ()
+      vim.g.copilot_enabled = false
+      vim.g.copilot_no_tab_map = true
+      vim.g.copilot_assume_mapped = true
+      vim.g.copilot_tab_fallback = ""
+    end
+  },
+
+  {
+    'kdheepak/lazygit.nvim',
+    cmd = 'LazyGit',
+  },
+
+  {
+    'stevearc/oil.nvim',
+    config = function ()
+      require('oil').setup()
+    end
   },
 }

@@ -44,8 +44,8 @@ return {
         format = function(entry, vim_item)
           local kind = require("lspkind").cmp_format({ mode = "symbol_text", maxwidth = 50 })(entry, vim_item)
           local strings = vim.split(kind.kind, "%s", { trimempty = true })
-          kind.kind = " " .. strings[1] .. " "
-          kind.menu = "    (" .. strings[2] .. ")"
+          kind.kind = " " .. (strings[1] or "") .. " "
+          kind.menu = "    (" .. (strings[2] or "") .. ")"
 
           return kind
         end,
@@ -58,11 +58,26 @@ return {
           behavior = cmp.ConfirmBehavior.Replace,
           select = true,
         },
+        ["<C-j"] = cmp.mapping(function(fallback)
+          local copilot_keys = vim.fn['copilot#Accept']()
+
+          if copilot_keys ~= '' and type(copilot_keys) == 'string' then
+            vim.api.nvim_feedkeys(copilot_keys, 'i', true)
+          else
+            fallback()
+          end
+        end, { "i", "s" }),
+
         ["<Tab>"] = cmp.mapping(function(fallback)
+          local copilot_keys = vim.fn['copilot#Accept']()
+
           if cmp.visible() then
             cmp.select_next_item()
           elseif luasnip.expand_or_jumpable() then
             luasnip.expand_or_jump()
+          elseif copilot_keys ~= '' and type(copilot_keys) == 'string' then
+            vim.notify(copilot_keys)
+            vim.api.nvim_feedkeys(copilot_keys, 'i', true)
           elseif has_words_before() then
             cmp.complete()
           else
