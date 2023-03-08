@@ -1,4 +1,4 @@
-(import-macros {: set! : autocmd!} :config.macros)
+(import-macros {: set! : autocmd!} :fnl.config.macros)
 
 ;; For auto compiling Fennel into Lua code in certain directories
 (autocmd! BufWritePost *.fnl (fn [] (vim.cmd "silent !make")))

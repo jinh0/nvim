@@ -1,11 +1,11 @@
 return {
-  {
-    "rktjmp/hotpot.nvim",
-    priority = 1000,
-    config = function()
-      require "hotpot"
-    end
-  },
+  --{
+  --  "rktjmp/hotpot.nvim",
+  --  priority = 1000,
+  --  config = function()
+  --    require "hotpot"
+  --  end
+  --},
 
   {
     'whonore/Coqtail',

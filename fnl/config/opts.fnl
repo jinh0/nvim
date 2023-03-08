@@ -1,4 +1,4 @@
-(import-macros {: set!} :config.macros)
+(import-macros {: set!} :fnl.config.macros)
 
 ;; GUI Necessities
 (set! termguicolors) ; Use GUI colors

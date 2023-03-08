@@ -1,4 +1,4 @@
-(import-macros {: map!} :config.macros)
+(import-macros {: map!} :fnl.config.macros)
 
 ;; Buffer traversal
 (map! n <C-h> <C-w>h)
