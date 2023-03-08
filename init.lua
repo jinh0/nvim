@@ -12,25 +12,10 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
--- bootstrap hotpot.nvim
--- local hotpot_path = vim.fn.stdpath('data') .. '/lazy/hotpot.nvim'
--- if vim.fn.empty(vim.fn.glob(hotpot_path)) > 0 then
---   print("Could not find hotpot.nvim, cloning new copy to", hotpot_path)
---   vim.fn.system({'git', 'clone',
---                  'https://github.com/rktjmp/hotpot.nvim', hotpot_path})
---   vim.cmd("helptags " .. hotpot_path .. "/doc")
--- end
-
--- vim.opt.rtp:prepend(hotpot_path)
-
 vim.g.mapleader = " "
 vim.g.maplocalleader = ","
 
-require("lazy").setup("plugins", {
-  dev = {
-    path = "~/dev"
-  }
-})
+require("lazy").setup("plugins", { dev = { path = "~/dev" } })
 
 require 'config.startup'
 require 'config.opts'
@@ -42,6 +27,7 @@ require 'config.mappings'
 vim.cmd([[
   imap <silent><expr> <Space> luasnip#expand_or_jumpable() ? '<Plug>luasnip-expand-or-jump' : '<Space>'
 
+  " don't automatically start commenting at new line
   autocmd FileType * set formatoptions-=cro
 ]])
 
@@ -49,7 +35,4 @@ vim.cmd([[
   au BufNewFile,BufRead *.mll set ft=ocamllex
   au BufNewFile,BufRead *.mly set ft=menhir
   au BufNewFile,BufRead *.v set ft=coq
-
-  filetype plugin on
-  filetype indent on
 ]])

@@ -217,7 +217,6 @@ require'lspconfig'.svelte.setup {
   end,
 }
 
-
 require'lspconfig'.tsserver.setup {
   init_options = { documentFormatting = false },
   on_attach = function(client, bufnr)
