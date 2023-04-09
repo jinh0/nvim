@@ -28,15 +28,6 @@ return {
   'nathom/filetype.nvim',
   'lewis6991/impatient.nvim',
 
-  -- Nice-to-haves
-  {
-    "windwp/nvim-autopairs",
-    event = "VeryLazy",
-    config = function()
-      require "config.plugins.autopairs"
-    end
-  },
-
   {
     'numToStr/Comment.nvim',
     event = "VeryLazy",
@@ -92,7 +83,7 @@ return {
       "williamboman/mason-lspconfig.nvim",
     },
     config = function ()
-      require 'plugins.lsp.lsp-config'
+      require 'lsp.lsp-config'
       require("mason").setup()
       require "mason-lspconfig".setup()
     end
@@ -221,4 +212,26 @@ return {
       require('oil').setup()
     end
   },
+
+  {
+    "SmiteshP/nvim-navic",
+    dependencies = {"neovim/nvim-lspconfig"},
+    config = function ()
+      require('nvim-navic').setup {
+        highlight = true
+      }
+
+      vim.o.winbar = "%{%v:lua.require'nvim-navic'.get_location()%}"
+    end
+  },
+
+  {
+    'VonHeikemen/fine-cmdline.nvim',
+    dependencies = {
+      {'MunifTanjim/nui.nvim'}
+    },
+    config = function ()
+      vim.keymap.set('n', ':', '<cmd>FineCmdline<CR>', {noremap = true})
+    end
+  }
 }

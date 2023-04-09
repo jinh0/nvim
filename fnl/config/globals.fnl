@@ -21,7 +21,7 @@
 
 (let! vimtex_view_method "skim")
 (let! vimtex_compiler_latexmk {:options ["-shell-escape"]})
-(let! vimtex_quickfix_ignore_filters ["Marginpar on page" "Overfull"])
+(let! vimtex_quickfix_ignore_filters ["Marginpar on page" "Overfull" "Underfull"])
 
 (let! coqtail_nomap 1)
 

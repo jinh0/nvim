@@ -7,7 +7,7 @@ vim.g["tex_conceal"] = "abdgms"
 vim.g["tex_flavor"] = "latex"
 vim.g["vimtex_view_method"] = "skim"
 vim.g["vimtex_compiler_latexmk"] = {options = {"-shell-escape"}}
-vim.g["vimtex_quickfix_ignore_filters"] = {"Marginpar on page", "Overfull"}
+vim.g["vimtex_quickfix_ignore_filters"] = {"Marginpar on page", "Overfull", "Underfull"}
 vim.g["coqtail_nomap"] = 1
 vim.g["NERDCreateDefaultMappings"] = 1
 vim.g["NERDSpaceDelims"] = 1
