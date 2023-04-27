@@ -1,5 +1,4 @@
-(macro let! [key val]
-  '(tset vim.g ,(tostring key) ,val))
+(import-macros {: let!} :fnl.config.macros)
 
 (let! mapleader " ")
 (let! maplocalleader ",")

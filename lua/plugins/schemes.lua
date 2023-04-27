@@ -6,6 +6,11 @@ return {
   },
 
   {
+    'mcchrish/zenbones.nvim',
+    dependencies = 'rktjmp/lush.nvim'
+  },
+
+  {
     'nyoom-engineering/oxocarbon.nvim',
     lazy = true,
   },

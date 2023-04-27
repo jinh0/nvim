@@ -29,8 +29,11 @@
               :noremap true}]
     '(vim.keymap.set ,(str->list (tostring mode)) ,keymap ,cmd ,opts)))
 
+(fn colorscheme! [scheme]
+  '(vim.cmd.colorscheme ,(tostring scheme)))
 
 {: let!
  : set!
  : autocmd!
- : map!}
+ : map!
+ : colorscheme!}
