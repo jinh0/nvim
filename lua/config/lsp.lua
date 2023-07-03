@@ -2,9 +2,13 @@ local lsp = require('lsp-zero').preset({})
 
 lsp.on_attach(function(client, bufnr)
   lsp.default_keymaps({buffer = bufnr})
+  vim.keymap.set('n', '<space>d', '<cmd>lua vim.diagnostic.open_float()<CR>', {noremap = true, silent = true})
 end)
 
 require('lspconfig').lua_ls.setup(lsp.nvim_lua_ls())
+require'lspconfig'.ocamllsp.setup{
+  on_attach=require'virtualtypes'.on_attach
+}
 
 lsp.setup()
 
@@ -16,5 +20,6 @@ cmp.setup({
     ['<CR>'] = cmp.mapping.confirm({select = true}),
     ['<Tab>'] = cmp_action.luasnip_supertab(),
     ['<S-Tab>'] = cmp_action.luasnip_shift_supertab(),
+    ['<M-Space>'] = cmp.mapping.complete(),
   }
 })
