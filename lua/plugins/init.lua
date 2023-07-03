@@ -2,9 +2,9 @@ return {
   'folke/tokyonight.nvim',
   'gpanders/nvim-parinfer',
 
-  'mattn/emmet-vim',
+  'jubnzv/virtual-types.nvim',
 
-  'folke/neodev.nvim',
+  'mattn/emmet-vim',
 
   {
     'lewis6991/gitsigns.nvim',
@@ -45,6 +45,8 @@ return {
       vim.keymap.set("n", "-", require("oil").open, { desc = "Open parent directory" })
     end
   },
+
+  { "lukas-reineke/indent-blankline.nvim" },
 
   {
     'numToStr/Comment.nvim',
