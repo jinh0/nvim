@@ -22,7 +22,10 @@ vim.g.loaded_netrwPlugin = 1
 vim.g.mapleader = " "
 vim.g.user_emmet_leader_key = ','
 
-require('lazy').setup('plugins')
+require('lazy').setup(
+  'plugins',
+  { dev = { path = '~/dev' } }
+)
 
 vim.opt.termguicolors = true
 vim.cmd.colorscheme('tokyonight')

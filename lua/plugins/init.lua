@@ -1,5 +1,6 @@
 return {
   'folke/tokyonight.nvim',
+  'gpanders/nvim-parinfer',
 
   'mattn/emmet-vim',
 

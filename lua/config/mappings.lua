@@ -1,3 +1,5 @@
+vim.keymap.set({'t'}, '<esc>', '<c-\\><c-n>', {noremap = true, silent = true})
+
 vim.keymap.set({'n'}, '<c-t>', ':NvimTreeToggle<CR>', {noremap = true, silent = true})
 
 vim.keymap.set({'v'}, '<a-c>', '\"+y', {noremap = true, silent = true})
