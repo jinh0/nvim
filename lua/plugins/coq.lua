@@ -5,6 +5,6 @@ return {
 
     vim.keymap.set('n', 'J', ':CoqNext<cr>', {})
     vim.keymap.set('n', 'K', ':CoqUndo<cr>', {})
-    vim.keymap.set('n', '<a-l>', ':CoqToLine<cr>', {})
+    vim.keymap.set('n', '<M-l>', ':CoqToLine<cr>', {})
   end
 }
