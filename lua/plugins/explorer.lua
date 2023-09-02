@@ -1,5 +1,16 @@
 return {
   {
+    'stevearc/oil.nvim',
+    keys = {'-'},
+    -- Optional dependencies
+    dependencies = { "nvim-tree/nvim-web-devicons" },
+    config = function ()
+      require("oil").setup()
+      vim.keymap.set("n", "-", require("oil").open, { desc = "Open parent directory" })
+    end
+  },
+
+  {
     'romgrk/barbar.nvim',
     config = function()
       vim.g.bufferline = {
