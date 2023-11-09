@@ -25,6 +25,7 @@ return {
       "hrsh7th/cmp-buffer",
       "hrsh7th/cmp-path",
       'saadparwaiz1/cmp_luasnip',
+      'PaterJason/cmp-conjure',
     },
     config = function()
       local cmp = require 'cmp'

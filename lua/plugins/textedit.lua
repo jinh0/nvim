@@ -12,8 +12,22 @@ return {
 
   {
     "windwp/nvim-autopairs",
-      config = function()
-        require("nvim-autopairs").setup {}
+    config = function()
+      local autopairs = require "nvim-autopairs"
+      local Rule = require "nvim-autopairs.rule"
+
+      local add_rule = function (x, y, z)
+        autopairs.add_rule(Rule(x, y, z))
       end
+
+      autopairs.setup {}
+
+      add_rule("$", "$", "tex")
+      add_rule("$$", "$$", "tex")
+      add_rule("\\{", "\\}", "tex")
+      add_rule("\\[", "\\]", "tex")
+      add_rule('"""', '"""', "python")
+      add_rule("'''", "'''", "python")
+    end
   },
 }

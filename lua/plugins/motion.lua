@@ -19,6 +19,9 @@ return {
         dim = true,
         match = '[A-Za-z0-9+-]'
       }
+      vim.cmd([[
+       hi! link EyelinerDimmed Comment
+      ]])
     end
   }
 }
