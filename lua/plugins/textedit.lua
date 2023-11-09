@@ -1,33 +1,33 @@
 return {
-  'mattn/emmet-vim',
-  'gpanders/nvim-parinfer',
+	"mattn/emmet-vim",
+	"gpanders/nvim-parinfer",
 
-  {
-    'numToStr/Comment.nvim',
-    event = 'VeryLazy',
-    config = function()
-      require('Comment').setup()
-    end
-  },
+	{
+		"numToStr/Comment.nvim",
+		event = "VeryLazy",
+		config = function()
+			require("Comment").setup()
+		end,
+	},
 
-  {
-    "windwp/nvim-autopairs",
-    config = function()
-      local autopairs = require "nvim-autopairs"
-      local Rule = require "nvim-autopairs.rule"
+	{
+		"windwp/nvim-autopairs",
+		config = function()
+			local autopairs = require("nvim-autopairs")
+			local Rule = require("nvim-autopairs.rule")
 
-      local add_rule = function (x, y, z)
-        autopairs.add_rule(Rule(x, y, z))
-      end
+			local add_rule = function(x, y, z)
+				autopairs.add_rule(Rule(x, y, z))
+			end
 
-      autopairs.setup {}
+			autopairs.setup({})
 
-      add_rule("$", "$", "tex")
-      add_rule("$$", "$$", "tex")
-      add_rule("\\{", "\\}", "tex")
-      add_rule("\\[", "\\]", "tex")
-      add_rule('"""', '"""', "python")
-      add_rule("'''", "'''", "python")
-    end
-  },
+			add_rule("$", "$", "tex")
+			add_rule("$$", "$$", "tex")
+			add_rule("\\{", "\\}", "tex")
+			add_rule("\\[", "\\]", "tex")
+			add_rule('"""', '"""', "python")
+			add_rule("'''", "'''", "python")
+		end,
+	},
 }

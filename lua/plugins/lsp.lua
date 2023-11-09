@@ -1,11 +1,10 @@
 return {
-  'jubnzv/virtual-types.nvim',
+	"jubnzv/virtual-types.nvim",
 
-  {
-    'neovim/nvim-lspconfig',
-    config = function ()
-      require 'config.lsp'
-    end
-  }
+	{
+		"neovim/nvim-lspconfig",
+		config = function()
+			require("config.lsp")
+		end,
+	},
 }
-
