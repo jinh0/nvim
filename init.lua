@@ -1,3 +1,10 @@
+vim.cmd([[
+  let g:conjure#filetypes = ["fennel"]
+
+  command Setup e main.py | rightb vsp input.txt | rightb sp output.txt | wincmd h
+  nnoremap <C-s> :silent Setup<CR>
+]])
+
 -- Setup lazy.nvim
 local lazypath = vim.fn.stdpath('data') .. '/lazy/lazy.nvim'
 
@@ -20,6 +27,7 @@ vim.opt.rtp:prepend(lazypath)
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 vim.g.mapleader = " "
+vim.g.maplocalleader = " "
 vim.g.user_emmet_leader_key = ','
 
 require('lazy').setup(
