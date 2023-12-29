@@ -18,7 +18,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
 	end,
 })
 
--- require('lspconfig').lua_ls.setup ()
+-- require("lspconfig").lua_ls.setup()
 require("lspconfig").ocamllsp.setup({})
 require("lspconfig").pyright.setup({})
 require("lspconfig").texlab.setup({})

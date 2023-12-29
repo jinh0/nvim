@@ -1,3 +1,15 @@
+local diagnostics = true
+
+vim.keymap.set({ "n" }, "<a-d>", function()
+	if diagnostics then
+		vim.diagnostic.disable()
+		diagnostic = false
+	else
+		vim.diagnostic.enable()
+		diagnostic = true
+	end
+end, { noremap = true, silent = true })
+
 vim.keymap.set({ "t" }, "<esc>", "<c-\\><c-n>", { noremap = true, silent = true })
 
 vim.keymap.set({ "n" }, "<c-t>", ":NvimTreeToggle<CR>", { noremap = true, silent = true })
