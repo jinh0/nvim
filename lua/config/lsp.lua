@@ -37,3 +37,6 @@ require("lspconfig").hls.setup({
 	cmd = { "haskell-language-server-wrapper", "--lsp" },
 	-- on_attach = require'virtualtypes'.on_attach
 })
+
+require("lspconfig").tsserver.setup({})
+require("lspconfig").svelte.setup({})
