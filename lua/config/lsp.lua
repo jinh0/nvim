@@ -1,26 +1,42 @@
-local lsp = require('lsp-zero').preset({})
-
-lsp.on_attach(function(client, bufnr)
-  lsp.default_keymaps({buffer = bufnr})
-  vim.keymap.set('n', '<space>d', vim.diagnostic.open_float, {buffer = bufnr})
-  vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, {buffer = bufnr})
-end)
-
-require('lspconfig').lua_ls.setup(lsp.nvim_lua_ls())
-require'lspconfig'.ocamllsp.setup{
-  on_attach=require'virtualtypes'.on_attach
-}
-
-lsp.setup()
-
-local cmp = require('cmp')
-local cmp_action = require('lsp-zero').cmp_action()
-
-cmp.setup({
-  mapping = {
-    ['<CR>'] = cmp.mapping.confirm({select = true}),
-    ['<Tab>'] = cmp_action.luasnip_supertab(),
-    ['<S-Tab>'] = cmp_action.luasnip_shift_supertab(),
-    ['<M-Space>'] = cmp.mapping.complete(),
-  }
+vim.api.nvim_create_autocmd("LspAttach", {
+	group = vim.api.nvim_create_augroup("UserLspConfig", {}),
+	callback = function(ev)
+		-- Buffer local mappings.
+		-- See `:help vim.lsp.*` for documentation on any of the below functions
+		local opts = { buffer = ev.buf }
+		vim.keymap.set("n", "gD", vim.lsp.buf.declaration, opts)
+		vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
+		vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
+		vim.keymap.set("n", "<space>d", vim.diagnostic.open_float, opts)
+		vim.keymap.set("n", "gi", vim.lsp.buf.implementation, opts)
+		vim.keymap.set("n", "<space>rn", vim.lsp.buf.rename, opts)
+		vim.keymap.set({ "n", "v" }, "<space>ca", vim.lsp.buf.code_action, opts)
+		vim.keymap.set("n", "gr", vim.lsp.buf.references, opts)
+		vim.keymap.set("n", "<space>f", function()
+			vim.lsp.buf.format({ async = true })
+		end, opts)
+	end,
 })
+
+-- require("lspconfig").lua_ls.setup()
+require("lspconfig").ocamllsp.setup({})
+require("lspconfig").pyright.setup({})
+require("lspconfig").texlab.setup({})
+require("lspconfig").clangd.setup({
+	cmd = { "clangd" },
+	filetypes = {
+		"c",
+		"cpp",
+		"objc",
+		"objcpp",
+		"cuda",
+		"proto",
+	},
+})
+require("lspconfig").hls.setup({
+	cmd = { "haskell-language-server-wrapper", "--lsp" },
+	-- on_attach = require'virtualtypes'.on_attach
+})
+
+require("lspconfig").tsserver.setup({})
+require("lspconfig").svelte.setup({})
