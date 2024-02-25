@@ -3,10 +3,10 @@ local diagnostics = true
 vim.keymap.set({ "n" }, "<a-d>", function()
 	if diagnostics then
 		vim.diagnostic.disable()
-		diagnostic = false
+		diagnostics = false
 	else
 		vim.diagnostic.enable()
-		diagnostic = true
+		diagnostics = true
 	end
 end, { noremap = true, silent = true })
 
@@ -47,3 +47,5 @@ vim.keymap.set({ "n" }, "<A-L>", ":BufferMoveNext<CR>", { noremap = true, silent
 vim.keymap.set({ "n" }, "<A-w>", ":BufferClose<CR>", { noremap = true, silent = true })
 vim.keymap.set({ "n" }, "<A-q>", ":q<CR>", { noremap = true, silent = true })
 vim.keymap.set({ "n" }, "<A-s>", ":w<CR>", { noremap = true, silent = true })
+
+vim.keymap.set({ "n" }, "<space><space>", "za", { noremap = true, silent = true })

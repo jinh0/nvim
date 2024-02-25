@@ -11,3 +11,6 @@ vim.opt.shortmess = "I"
 
 vim.opt.signcolumn = "yes"
 vim.opt.conceallevel = 2
+
+vim.opt.foldmethod = "indent"
+vim.opt.foldlevel = 99
