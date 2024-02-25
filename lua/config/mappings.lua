@@ -1,14 +1,12 @@
-local diagnostics = true
+local function toggle()
+  if vim.diagnostic.is_disabled() then
+    vim.diagnostic.enable()
+  else
+    vim.diagnostic.disable()
+  end
+end
 
-vim.keymap.set({ "n" }, "<a-d>", function()
-	if diagnostics then
-		vim.diagnostic.disable()
-		diagnostic = false
-	else
-		vim.diagnostic.enable()
-		diagnostic = true
-	end
-end, { noremap = true, silent = true })
+vim.keymap.set({ "n" }, "<space>s", toggle, { noremap = true })
 
 vim.keymap.set({ "t" }, "<esc>", "<c-\\><c-n>", { noremap = true, silent = true })
 
@@ -20,6 +18,7 @@ vim.keymap.set({ "n" }, "<", "<<", { noremap = true, silent = true })
 vim.keymap.set({ "n" }, ">", ">>", { noremap = true, silent = true })
 
 vim.keymap.set({ "n" }, "<c-p>", ":Telescope find_files<cr>", { noremap = true, silent = true })
+vim.keymap.set({ "n" }, "<c-g>", ":Telescope lsp_workspace_symbols<cr>", { noremap = true, silent = true })
 vim.keymap.set({ "n" }, "gr", ":Telescope lsp_references<cr>", { noremap = true, silent = true })
 vim.keymap.set({ "n" }, "<leader>gg", ":Telescope live_grep<cr>", { noremap = true, silent = true })
 
