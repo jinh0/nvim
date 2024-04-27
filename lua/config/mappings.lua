@@ -16,6 +16,7 @@ vim.keymap.set({ "n" }, "<", "<<", { noremap = true, silent = true })
 vim.keymap.set({ "n" }, ">", ">>", { noremap = true, silent = true })
 
 vim.keymap.set({ "n" }, "<c-p>", ":Telescope find_files<cr>", { noremap = true, silent = true })
+vim.keymap.set({ "n" }, "<c-g>", ":Telescope lsp_workspace_symbols<cr>", { noremap = true, silent = true })
 vim.keymap.set({ "n" }, "gr", ":Telescope lsp_references<cr>", { noremap = true, silent = true })
 vim.keymap.set({ "n" }, "<leader>gg", ":Telescope live_grep<cr>", { noremap = true, silent = true })
 
