@@ -1,6 +1,11 @@
 return {
 	"mattn/emmet-vim",
-	"gpanders/nvim-parinfer",
+	{
+		"gpanders/nvim-parinfer",
+		config = function()
+			vim.g.parinfer_filetypes = { "lispy", "scheme" }
+		end,
+	},
 
 	{
 		"numToStr/Comment.nvim",

@@ -1,6 +1,8 @@
 vim.cmd([[
   let g:conjure#filetypes = ["fennel"]
 
+  autocmd BufNewFile,BufRead *.lispy   set filetype=scheme
+
   command Setup e main.py | rightb vsp input.txt | rightb sp output.txt | wincmd h
   nnoremap <C-s> :silent Setup<CR>
 ]])
@@ -47,3 +49,4 @@ require("config.lsp")
 vim.g.user_emmet_leader_key = ","
 
 vim.api.nvim_set_hl(0, "@punctuation.bracket", { link = "Comment" })
+vim.api.nvim_set_hl(0, "schemeParentheses", { link = "Comment" })
