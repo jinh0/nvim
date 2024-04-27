@@ -1,12 +1,8 @@
-local diagnostics = true
-
-vim.keymap.set({ "n" }, "<a-d>", function()
-	if diagnostics then
-		vim.diagnostic.disable()
-		diagnostics = false
-	else
+vim.keymap.set({ "n" }, "<space>s", function()
+	if vim.diagnostic.is_disabled() then
 		vim.diagnostic.enable()
-		diagnostics = true
+	else
+		vim.diagnostic.disable()
 	end
 end, { noremap = true, silent = true })
 
