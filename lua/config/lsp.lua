@@ -47,3 +47,5 @@ require("lspconfig").hls.setup({
 
 require("lspconfig").tsserver.setup({})
 require("lspconfig").svelte.setup({})
+
+require("lspconfig").tailwindcss.setup({})
