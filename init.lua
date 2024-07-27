@@ -42,7 +42,7 @@ vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 vim.g.user_emmet_leader_key = ","
 
-require("lazy").setup("plugins", { dev = { path = "~/dev" } })
+require("lazy").setup("plugins", { dev = { path = "~/dev" }, debug = true })
 
 vim.opt.termguicolors = true
 vim.cmd.colorscheme("tokyonight")

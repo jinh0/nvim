@@ -13,6 +13,7 @@ return {
 	{
 		"jinh0/eyeliner.nvim",
 		dev = true,
+		event = "InsertEnter",
 		config = function()
 			require("eyeliner").setup({
 				highlight_on_key = true,

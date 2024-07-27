@@ -3,7 +3,7 @@ return {
 	{
 		"gpanders/nvim-parinfer",
 		config = function()
-			vim.g.parinfer_filetypes = { "lispy", "scheme" }
+			vim.g.parinfer_filetypes = { "lispy", "scheme", "fennel" }
 		end,
 	},
 
