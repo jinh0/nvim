@@ -1,4 +1,9 @@
 vim.cmd([[
+  augroup highlight_yank
+      autocmd!
+      au TextYankPost * silent! lua vim.highlight.on_yank{higroup="Visual", timeout=150}
+  augroup END
+
   let g:conjure#filetypes = ["fennel"]
 
   autocmd BufNewFile,BufRead *.lispy   set filetype=scheme
@@ -6,6 +11,11 @@ vim.cmd([[
   command Setup e main.py | rightb vsp input.txt | rightb sp output.txt | wincmd h
   nnoremap <C-s> :silent Setup<CR>
 ]])
+--
+-- vim.cmd([[
+--   command Setup e main.cpp | rightb vsp input.txt | rightb sp output.txt | wincmd h
+--   nnoremap <C-s> :silent Setup<CR>
+-- ]])
 
 -- Setup lazy.nvim
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
