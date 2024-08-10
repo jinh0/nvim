@@ -1,4 +1,8 @@
+vim.o.laststatus = 3
+
 vim.cmd([[
+  set colorcolumn=80
+
   augroup highlight_yank
       autocmd!
       au TextYankPost * silent! lua vim.highlight.on_yank{higroup="Visual", timeout=150}
@@ -8,14 +12,14 @@ vim.cmd([[
 
   autocmd BufNewFile,BufRead *.lispy   set filetype=scheme
 
-  command Setup e main.py | rightb vsp input.txt | rightb sp output.txt | wincmd h
+  " command Setup e main.py | rightb vsp input.txt | rightb sp output.txt | wincmd h
+  " nnoremap <C-s> :silent Setup<CR>
+]])
+
+vim.cmd([[
+  command Setup e main.cpp | rightb vsp input.txt | rightb sp output.txt | wincmd h
   nnoremap <C-s> :silent Setup<CR>
 ]])
---
--- vim.cmd([[
---   command Setup e main.cpp | rightb vsp input.txt | rightb sp output.txt | wincmd h
---   nnoremap <C-s> :silent Setup<CR>
--- ]])
 
 -- Setup lazy.nvim
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
@@ -42,7 +46,7 @@ vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 vim.g.user_emmet_leader_key = ","
 
-require("lazy").setup("plugins", { dev = { path = "~/dev" }, debug = true })
+require("lazy").setup("plugins", { dev = { path = "~/dev" } })
 
 vim.opt.termguicolors = true
 vim.cmd.colorscheme("tokyonight")

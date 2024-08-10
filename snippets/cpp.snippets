@@ -1,5 +1,5 @@
 snippet init "init" wA
-	#include <iostream>
+	#include <bits/stdc++.h>
 
 	using namespace std;
 
@@ -7,11 +7,26 @@ snippet init "init" wA
 	#define SIZE(matrix, m, n) int m = matrix.size(), n = matrix[0].size()
 	#define II(v, m, n) vector<vector<int>> v(m, vector<int>(n, 0));
 
+	#define all(v) v.begin(),v.end()
+	#define exists(v, x) v.find(x) != v.end()
+
 	typedef vector<int> VI;
 	typedef pair<int, int> PI;
 
-	void print(vector<int> v) { for (auto &x : v) cout << x << " "; cout << endl; }
+	void print(vector<int> v) {
+		for (auto &x : v) cout << x << " ";
+		cout << endl;
+	}
+
+	///////////////////////////////////////////////////////////////////////
+
+	int solve() {
+		$1
+	}
 
 	int main() {
-		$1
+		int t; cin >> t;
+
+		while (t--)
+			solve();
 	}
