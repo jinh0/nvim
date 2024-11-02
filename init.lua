@@ -49,7 +49,9 @@ vim.g.user_emmet_leader_key = ","
 require("lazy").setup("plugins", { dev = { path = "~/dev" } })
 
 vim.opt.termguicolors = true
-vim.cmd.colorscheme("tokyonight")
+vim.g.everforest_enable_italic = true
+vim.g.everforest_background = "medium"
+vim.cmd.colorscheme("everforest")
 
 vim.keymap.set({ "n" }, "<C-h>", "<C-w>h", { noremap = true, silent = true })
 vim.keymap.set({ "n" }, "<C-j>", "<C-w>j", { noremap = true, silent = true })
