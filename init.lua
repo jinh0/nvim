@@ -54,6 +54,8 @@ vim.g.user_emmet_leader_key = ","
 require("lazy").setup("plugins", { dev = { path = "~/dev" } })
 
 vim.opt.termguicolors = true
+vim.g.everforest_enable_italic = true
+vim.g.everforest_background = "medium"
 vim.cmd.colorscheme("everforest")
 
 vim.keymap.set({ "n" }, "<C-h>", "<C-w>h", { noremap = true, silent = true })
