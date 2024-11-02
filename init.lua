@@ -12,6 +12,11 @@ vim.cmd([[
 
   autocmd BufNewFile,BufRead *.lispy   set filetype=scheme
 
+  nnoremap <C-,> <C-w>2>
+  nnoremap <C-.> <C-w>2<
+
+  set background=dark
+
   " command Setup e main.py | rightb vsp input.txt | rightb sp output.txt | wincmd h
   " nnoremap <C-s> :silent Setup<CR>
 ]])
@@ -49,7 +54,7 @@ vim.g.user_emmet_leader_key = ","
 require("lazy").setup("plugins", { dev = { path = "~/dev" } })
 
 vim.opt.termguicolors = true
-vim.cmd.colorscheme("tokyonight")
+vim.cmd.colorscheme("everforest")
 
 vim.keymap.set({ "n" }, "<C-h>", "<C-w>h", { noremap = true, silent = true })
 vim.keymap.set({ "n" }, "<C-j>", "<C-w>j", { noremap = true, silent = true })

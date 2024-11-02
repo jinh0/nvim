@@ -12,6 +12,7 @@ return {
 					javascriptreact = { "prettierd" },
 					javascript = { "prettierd" },
 					typescript = { "prettierd" },
+					json = { "prettierd" },
 					python = { "black" },
 				},
 				format_on_save = {

@@ -72,15 +72,47 @@ require("lspconfig").hls.setup({
 	-- on_attach = require'virtualtypes'.on_attach
 })
 
-require("lspconfig").tsserver.setup({})
+local nvim_lsp = require('lspconfig')
+
+nvim_lsp.denols.setup {
+  root_dir = nvim_lsp.util.root_pattern("deno.json", "deno.jsonc"),
+}
+
+require("lspconfig").tsserver.setup({
+  root_dir = nvim_lsp.util.root_pattern("package.json"),
+  single_file_support = false
+})
 require("lspconfig").svelte.setup({})
 
 require("lspconfig").tailwindcss.setup({})
 
 require("lspconfig").fennel_ls.setup({
+  root_dir = function(filename, _)
+    return vim.fs.root(filename, { ".git", "fnl", ".nfnl.fnl" })
+  end,
   settings = {
     ["fennel-ls"] = {
       ["extra-globals"] = "vim"
     }
   }
 })
+
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities.textDocument.completion.completionItem.snippetSupport = true
+
+require('lspconfig').jsonls.setup {
+  capabilities = capabilities,
+  settings = {
+    json = {
+      schemas = require('schemastore').json.schemas({
+        -- select = {
+        --   'tsconfig.json',
+        --   'package.json',
+        -- },
+      }),
+      validate = { enable = true },
+    },
+  },
+}
+
+require'lspconfig'.jdtls.setup{}
